@@ -1,13 +1,21 @@
 import React from 'react';
 import './signup.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 
 const Signup = () => {
+    const navigate = useNavigate();
+
+    const handleSignup = (event) => {
+        event.preventDefault();
+        navigate('/questions');
+    };
+
   return (
     <div className='SignUpPage'>
         <h3>Sign Up</h3>
-        <form className='form-screen'>
+        <form onSubmit={handleSignup}  className='form-screen'>
           <div className='inputGroup'>
             <label htmlFor='name'>Name:</label>
               <input
