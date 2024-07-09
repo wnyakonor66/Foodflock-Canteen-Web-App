@@ -48,5 +48,6 @@ export const {
 	register,
 	registerFailed,
 	registerStart,
+    registerSuccess,
 } = userSlice.actions;
 export default userSlice.reducer;
