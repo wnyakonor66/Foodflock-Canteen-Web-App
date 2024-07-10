@@ -6,7 +6,6 @@ import VendorForm from './Vendorform/VendorForm';
 import {RouterProvider, createBrowserRouter} from "react-router-dom";
 
 
-
 function App() {
   const route = createBrowserRouter ([
     {
