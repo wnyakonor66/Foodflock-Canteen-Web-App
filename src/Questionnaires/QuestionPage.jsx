@@ -13,8 +13,6 @@ const QuestionPage = () => {
 				body: JSON.stringify({ role: choice }),
 				headers: {
 					"Content-Type": "application/json",
-					Accept: "application/json",
-					"Access-Control-Allow-Origin": "*",
 				},
 				credentials: "include",
 			});
