@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../thunk_action_creators/users";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Signup = () => {
 	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user.data);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (user) {
+			navigate("/questions");
+		}
+	}, [user, navigate]);
 	const submitHandler = (event) => {
 		event.preventDefault();
 

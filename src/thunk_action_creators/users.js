@@ -16,7 +16,7 @@ export const registerUser = (form_data) => {
 			});
 
 			const data = await response.json();
-			dispatch(registerSuccess(data));
+			dispatch(registerSuccess(data.user));
 		} catch (error) {
 			dispatch(registerFailed(error.message));
 		}
