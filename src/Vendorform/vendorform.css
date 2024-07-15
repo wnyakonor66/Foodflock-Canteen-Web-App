@@ -58,3 +58,11 @@
 .inputGroup button:hover {
     background-color: #0056b3;
 }
+
+
+.required-asterisk::after {
+    content: '*';
+    color: red;
+    margin-left: 2px;
+
+}
