@@ -13,6 +13,7 @@ export const registerUser = (form_data) => {
 				method: "POST",
 				body: JSON.stringify(form_data),
 				headers: { "Content-Type": "application/json" },
+				credentials: "include",
 			});
 
 			const data = await response.json();
