@@ -1,12 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./login.css";
+import { loginUser } from "../thunk_action_creators/users";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
+	const dispatch = useDispatch();
+	const user = useSelector((state) => state.user.data);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (user) {
+			if (user.role === "vendor") {
+				navigate("/vendorForms");
+			} else if (user.role === "client") {
+				// redirect to vendors page
+			} else {
+				navigate("/questions");
+			}
+		}
+	}, [user, navigate]);
+
+	const submitHandler = (event) => {
+		event.preventDefault();
+
+		const email = document.getElementById("email").value;
+		const password = document.getElementById("password").value;
+		dispatch(loginUser({ email, password }));
+	};
+
 	return (
 		<div className="SignUpPage">
 			<h3>Sign In</h3>
-			<form className="form-screen">
+			<form className="form-screen" onSubmit={submitHandler}>
 				<div className="inputGroup">
 					<label htmlFor="email">Email:</label>
 					<input
