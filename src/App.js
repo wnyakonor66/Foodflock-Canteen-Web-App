@@ -3,6 +3,7 @@ import Login from './login/Login';
 import QuestionPage from './Questionnaires/QuestionPage';
 import Signup from './signup/Signup';
 import VendorForm from './Vendorform/VendorForm';
+import ClientPage from './ClientPage';
 import {RouterProvider, createBrowserRouter} from "react-router-dom";
 
 
@@ -23,9 +24,13 @@ function App() {
     {
       path: "/vendorForms",
       element: <VendorForm />
+    },
+    {
+      path: "/client",
+      element: <ClientPage />
     }
   ]);
-  return <div className="App">
+  return <div className="App h-full">
       <RouterProvider router={route} />
     </div>
     

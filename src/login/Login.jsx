@@ -14,7 +14,7 @@ const Login = () => {
 			if (user.role === "vendor") {
 				navigate("/vendorForms");
 			} else if (user.role === "client") {
-				// redirect to vendors page
+				navigate("/client")
 			} else {
 				navigate("/questions");
 			}
