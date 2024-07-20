@@ -24,9 +24,11 @@ function App() {
       path: "/vendorForms",
       element: <VendorForm />
     }
+   
   ]);
   return <div className="App">
       <RouterProvider router={route} />
+     
     </div>
     
   
