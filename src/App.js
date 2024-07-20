@@ -25,6 +25,10 @@ function App() {
     {
       path: "/vendorForms",
       element: <VendorForm />
+    },
+    {
+      path: "/vendorsPage",
+      element: <VendorsPage/>
     }
    
   ]);

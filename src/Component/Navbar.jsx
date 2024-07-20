@@ -1,11 +1,14 @@
 import React from 'react';
-import './styles/navbar.css'
+import './styles/navbar.css';
+import { Link } from 'react-router-dom';
 
 
-const Navbar = () => {
+
+export const Navbar = () => {
   return (
-    <div className='navbar_screen'>Navbar</div>
+    <nav>
+        <Link to='/' className='title'>FoodFlock Canteen</Link>
+
+    </nav>
   )
 }
-
-export default Navbar

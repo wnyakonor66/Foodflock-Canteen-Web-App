@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import ShopIcon from '@mui/icons-material/Shop';
@@ -10,31 +9,31 @@ export const SideBarData = [
     {
         title: "Profile",
         icon: <PersonIcon/>,
-        Link: '/profile'
+        link: '/profile'
 
     },
     {
         title: "Product",
         icon: <ProductionQuantityLimitsIcon/>,
-        Link: '/product'
+        link: '/product'
 
     },
     {
         title: "Order",
         icon: <ShopIcon/>,
-        Link: '/order'
+        link: '/order'
 
     },
     {
         title: "Settings and Preferences",
         icon: <SettingsIcon/>,
-        Link: '/settings'
+        link: '/settings'
 
     },
     {
         title: "Support and Help",
         icon: <HelpIcon/>,
-        Link: '/support'
+        link: '/support'
 
     },
 

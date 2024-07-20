@@ -1,0 +1,22 @@
+nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(30, 153, 153, 0.87);
+    height: 50px;
+    padding: 0 20px;
+    z-index: 1;
+    
+}
+
+nav .title {
+    font-size: 1.3rem;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+   
+}
+
+
+   
