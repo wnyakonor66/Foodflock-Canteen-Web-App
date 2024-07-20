@@ -1,0 +1,29 @@
+
+.search_screen {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(30, 153, 153, 0.87);;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 10px;
+}
+
+.search input {
+    flex: 1;
+    margin-left: 0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.search .search_title {
+    margin-left: 20px;
+    font-weight: 400;
+    font-size: 1.1rem;
+}
