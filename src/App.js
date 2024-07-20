@@ -4,6 +4,8 @@ import QuestionPage from './Questionnaires/QuestionPage';
 import Signup from './signup/Signup';
 import VendorForm from './Vendorform/VendorForm';
 import {RouterProvider, createBrowserRouter} from "react-router-dom";
+import VendorsPage from './vendorsPage/VendorsPage';
+
 
 
 function App() {
