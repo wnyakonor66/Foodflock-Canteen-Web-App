@@ -13,27 +13,27 @@ export const SideBarData = [
 
     },
     {
-        title: "Product",
+        title: "Products",
         icon: <ProductionQuantityLimitsIcon/>,
-        link: '/product'
+        link: '/vendorsPage/product'
 
     },
     {
-        title: "Order",
+        title: "Orders",
         icon: <ShopIcon/>,
-        link: '/order'
+        link: '/vendorsPage/order'
 
     },
     {
         title: "Settings and Preferences",
         icon: <SettingsIcon/>,
-        link: '/settings'
+        link: '/vendorsPage/settings'
 
     },
     {
         title: "Support and Help",
         icon: <HelpIcon/>,
-        link: '/support'
+        link: '/vendorsPage/support'
 
     },
 

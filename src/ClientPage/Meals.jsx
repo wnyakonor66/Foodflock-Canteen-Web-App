@@ -1,11 +1,15 @@
 import React from "react";
 import MealCard from "../Component/MealCard";
+import SearchBar from "../Component/SearchBar";
 
 export default function Meals() {
 	return (
 		<div className="flex flex-col pl-5">
 			<div></div>
 			<div className="flex flex-row mt-2 flex-wrap">
+				<div className="w-full">
+					<SearchBar />
+				</div>
 				<MealCard
 					name="Meal 1"
 					price="$10"

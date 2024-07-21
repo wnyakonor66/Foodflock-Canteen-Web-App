@@ -7,7 +7,8 @@ import ClientPage from "./ClientPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import VendorsPage from "./vendorsPage/VendorsPage";
 import Profile from "./Component/pages/Profile";
-
+import Order from "./ClientPage/Order";
+import Meals from "./ClientPage/Meals";
 
 
 function App() {
@@ -31,18 +32,35 @@ function App() {
 		{
 			path: "/client",
 			element: <ClientPage />,
+			children: [
+				{
+					path: "order",
+					element: <Order />,
+				},
+				{
+					path: "",
+					element: <Meals />,
+				},
+			],
 		},
+	
 		{
-			path: "/vendorsPage/*",
+			path: "/vendorsPage",
 			element: <VendorsPage />,
-		},
-		{
-			path: "/",
-			element: <VendorsPage />,
+			children: [
+				{
+					path: "",
+					element: <Profile />,
+				},
+                {
+					path: "profile",
+					element: <Profile />,
+				},
+			],
 		},
 	]);
 	return (
-		<div className="App h-full">
+		<div className="App h-full overflow-x-hidden">
 			<RouterProvider router={route} />
 		</div>
 	);
