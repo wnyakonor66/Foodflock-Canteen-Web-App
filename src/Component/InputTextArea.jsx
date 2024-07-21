@@ -18,7 +18,7 @@ export default function InputTextArea({
 				value={value}
 				placeholder={placeholder}
 				maxLength={250}
-				className="border border-gray-100 p-1 rounded-md outline-none w-72 mb-10 resize-y max-h-4"
+				className="border border-gray-100 p-1 rounded-md outline-none w-72 mb-10 resize-y max-h-40"
 			/>
 		</div>
 	);
