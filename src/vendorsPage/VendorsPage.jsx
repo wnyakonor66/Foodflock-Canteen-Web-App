@@ -3,6 +3,9 @@ import SideBar from '../Component/SideBar';
 import { Navbar } from '../Component/Navbar';
 import './vendorspage.css';
 import SearchBar from '../Component/SearchBar';
+import { Route, Routes } from 'react-router-dom';
+import Profile from '../Component/pages/Profile';
+
 
 const VendorsPage = () => {
   return (
@@ -12,6 +15,12 @@ const VendorsPage = () => {
         <SideBar />
         <div className="content-area">
           <SearchBar />
+          <Routes>
+            <Route 
+              path='profile'
+              element= {<Profile/>}
+              />
+          </Routes>
         </div>
       </div>
     </div>

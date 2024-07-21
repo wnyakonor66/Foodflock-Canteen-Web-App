@@ -6,6 +6,9 @@ import VendorForm from "./Vendorform/VendorForm";
 import ClientPage from "./ClientPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import VendorsPage from "./vendorsPage/VendorsPage";
+import Profile from "./Component/pages/Profile";
+
+
 
 function App() {
 	const route = createBrowserRouter([
@@ -30,7 +33,11 @@ function App() {
 			element: <ClientPage />,
 		},
 		{
-			path: "/vendorsPage",
+			path: "/vendorsPage/*",
+			element: <VendorsPage />,
+		},
+		{
+			path: "/",
 			element: <VendorsPage />,
 		},
 	]);

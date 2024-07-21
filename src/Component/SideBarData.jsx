@@ -9,7 +9,7 @@ export const SideBarData = [
     {
         title: "Profile",
         icon: <PersonIcon/>,
-        link: '/profile'
+        link: '/vendorsPage/profile'
 
     },
     {

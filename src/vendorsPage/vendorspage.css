@@ -1,13 +1,4 @@
-/* .V-screen {
-    width: 100vw;
-    height: 100vh;
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    z-index: -999;
-    
-} */
- .V-screen {
+.V-screen {
     width: 100vw;
     height: 100vh;
     display: flex;
