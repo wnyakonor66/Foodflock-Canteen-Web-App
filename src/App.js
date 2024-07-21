@@ -58,7 +58,7 @@ function App() {
 		},
 	]);
 	return (
-		<div className="App h-full">
+		<div className="App h-full overflow-x-hidden">
 			<RouterProvider router={route} />
 		</div>
 	);
