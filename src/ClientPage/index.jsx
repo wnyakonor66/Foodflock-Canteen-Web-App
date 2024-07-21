@@ -101,7 +101,7 @@ const ClientPage = () => {
 					</div>
 				</nav>
 				<div>
-					<Order />
+					<Meals />
 				</div>
 			</div>
 		</>
