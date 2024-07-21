@@ -9,6 +9,7 @@ import VendorsPage from "./vendorsPage/VendorsPage";
 import Profile from "./Component/pages/Profile";
 import Order from "./ClientPage/Order";
 import Meals from "./ClientPage/Meals";
+import Product from "./Component/pages/Product";
 
 
 function App() {
@@ -55,6 +56,10 @@ function App() {
                 {
 					path: "profile",
 					element: <Profile />,
+				},
+				{
+					path: "product",
+					element: <Product />
 				},
 			],
 		},
