@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import VendorsPage from "./vendorsPage/VendorsPage";
 import Order from "./ClientPage/Order";
 import Meals from "./ClientPage/Meals";
+import Profile from "./vendorsPage/pages/Profile";
 
 function App() {
 	const route = createBrowserRouter([
@@ -44,6 +45,16 @@ function App() {
 		{
 			path: "/vendorsPage",
 			element: <VendorsPage />,
+			children: [
+				{
+					path: "",
+					element: <Profile />,
+				},
+                {
+					path: "profile",
+					element: <Profile />,
+				},
+			],
 		},
 	]);
 	return (

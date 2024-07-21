@@ -13,13 +13,13 @@ export const SideBarData = [
 
     },
     {
-        title: "Product",
+        title: "Products",
         icon: <ProductionQuantityLimitsIcon/>,
         link: '/product'
 
     },
     {
-        title: "Order",
+        title: "Orders",
         icon: <ShopIcon/>,
         link: '/order'
 

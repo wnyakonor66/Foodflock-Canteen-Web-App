@@ -3,6 +3,7 @@ import SideBar from "../Component/SideBar";
 import { Navbar } from "../Component/Navbar";
 import "./vendorspage.css";
 import SearchBar from "../Component/SearchBar";
+import { Outlet } from "react-router-dom";
 
 const VendorsPage = () => {
 	return (
@@ -13,6 +14,7 @@ const VendorsPage = () => {
 				<div className="content-area">
 					{/* Search bar not needed here */}
 					{/* <SearchBar /> */}
+					<Outlet />
 				</div>
 			</div>
 		</div>
