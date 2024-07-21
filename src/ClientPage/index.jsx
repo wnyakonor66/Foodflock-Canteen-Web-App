@@ -3,14 +3,17 @@ import { GiMeal } from "react-icons/gi";
 import { FaShop } from "react-icons/fa6";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { BiSolidCategory } from "react-icons/bi";
+import { FaTruck } from "react-icons/fa";
 import Meals from "./Meals";
 import { Navbar } from "../Component/Navbar";
-import Order from "./Order";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const ClientPage = () => {
+	const navigate = useNavigate();
+
 	return (
 		<>
-            <Navbar />
+			<Navbar />
 			<div className="flex flex-row h-screen">
 				<nav className="w-1/6 border-solid border-r border-gray-400 px-2 pt-2 bg-[#2f4f4f] text-white">
 					<div className="flex flex-row text-base font-semibold font-roboto">
@@ -18,13 +21,22 @@ const ClientPage = () => {
 						<span className="ml-2">CANTEEN</span>
 					</div>
 					<div className="flex flex-col pl-4">
-						<div className="h-10 mt-1 border-b border-gray-400 flex items-center border-l-4 pl-2 cursor-pointer">
+						<div
+							className="h-10 mt-1 border-b border-gray-400 flex items-center border-l-4 pl-2 cursor-pointer"
+							onClick={() => {
+								navigate("/client");
+							}}
+						>
 							<GiMeal size={20} />
 							<span className="ml-2">Meals</span>
 						</div>
 						<div className="h-10 mt-1 border-b border-gray-400 flex items-center cursor-pointer hover:border-l-4 hover:pl-2">
 							<FaShop size={20} />
 							<span className="ml-2">Vendors</span>
+						</div>
+						<div className="h-10 mt-1 border-b border-gray-400 flex items-center cursor-pointer hover:border-l-4 hover:pl-2">
+                            <FaTruck size={20} />
+							<span className="ml-2">Orders</span>
 						</div>
 					</div>
 
@@ -101,7 +113,7 @@ const ClientPage = () => {
 					</div>
 				</nav>
 				<div>
-					<Meals />
+					<Outlet />
 				</div>
 			</div>
 		</>

@@ -6,6 +6,8 @@ import VendorForm from "./Vendorform/VendorForm";
 import ClientPage from "./ClientPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import VendorsPage from "./vendorsPage/VendorsPage";
+import Order from "./ClientPage/Order";
+import Meals from "./ClientPage/Meals";
 
 function App() {
 	const route = createBrowserRouter([
@@ -28,6 +30,16 @@ function App() {
 		{
 			path: "/client",
 			element: <ClientPage />,
+			children: [
+				{
+					path: "order",
+					element: <Order />,
+				},
+				{
+					path: "",
+					element: <Meals />,
+				},
+			],
 		},
 		{
 			path: "/vendorsPage",
