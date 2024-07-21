@@ -10,6 +10,7 @@ import Profile from "./Component/pages/Profile";
 import Order from "./ClientPage/Order";
 import Meals from "./ClientPage/Meals";
 import Product from "./Component/pages/Product";
+import OrderMenu from "./Component/pages/OrderMenu";
 
 
 function App() {
@@ -60,6 +61,10 @@ function App() {
 				{
 					path: "product",
 					element: <Product />
+				},
+				{
+					path: "order",
+					element: <OrderMenu />
 				},
 			],
 		},

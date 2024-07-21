@@ -16,7 +16,7 @@ export const SideBarData = [
         title: "Products",
         icon: <ProductionQuantityLimitsIcon/>,
         link: '/vendorsPage/product'
-
+ 
     },
     {
         title: "Orders",
