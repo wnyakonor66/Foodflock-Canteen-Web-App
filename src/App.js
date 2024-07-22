@@ -6,7 +6,7 @@ import VendorForm from "./Vendorform/VendorForm";
 import ClientPage from "./ClientPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import VendorsPage from "./vendorsPage/VendorsPage";
-import Profile from "./Component/pages/Profile";
+import Profile from "./vendorsPage/pages/Profile";
 import Order from "./ClientPage/Order";
 import Meals from "./ClientPage/Meals";
 import Product from "./Component/pages/Product";
