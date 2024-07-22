@@ -1,55 +1,43 @@
-import React from "react";
-import MealCard from "../Component/MealCard";
+import React, { useContext } from "react";
 import SearchBar from "../Component/SearchBar";
+import { ProductContext } from "./ProductContext";
 
 export default function Meals() {
-	return (
-		<div className="flex flex-col pl-5">
-			<div></div>
-			<div className="flex flex-row mt-2 flex-wrap">
-				<div className="w-full">
-					<SearchBar />
-				</div>
-				<MealCard
-					name="Meal 1"
-					price="$10"
-					business="Business 1"
-					description="Best of the best"
-					image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-				/>
+  const { products } = useContext(ProductContext);
 
-				<MealCard
-					name="Meal 1"
-					price="$10"
-					business="Business 1"
-					description="Best of the best"
-					image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-				/>
-
-				<MealCard
-					name="Meal 1"
-					price="$10"
-					business="Business 1"
-					description="Best of the best"
-					image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-				/>
-
-				<MealCard
-					name="Meal 1"
-					price="$10"
-					business="Business 1"
-					description="Best of the best"
-					image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-				/>
-
-				<MealCard
-					name="Meal 1"
-					price="$10"
-					business="Business 1"
-					description="Best of the best"
-					image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
-				/>
-			</div>
-		</div>
-	);
+  return (
+    <div className="flex flex-col pl-5">
+      <div></div>
+      <div className="flex flex-row mt-2 flex-wrap justify-start">
+        <div className="w-full mb-4">
+          <SearchBar />
+        </div>
+        {products.length === 0 ? (
+          <p>No Meals Available</p>
+        ) : (
+          products.map((product, index) => (
+            <div
+              key={index}
+              className="w-80 max-w-xs rounded overflow-hidden shadow-lg m-4"
+            >
+              <img
+                className="w-full h-40 object-cover"
+                src={product.image}
+                alt={product.name}
+              />
+              <div className="px-6 py-4">
+                <div className="font-bold text-lg mb-2">{product.name}</div>
+                <p className="text-gray-700 text-sm">{product.description}</p>
+              </div>
+              <div className="px-6 pt-4 pb-2">
+                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
+                  Ghc{product.price}
+                </span>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
 }

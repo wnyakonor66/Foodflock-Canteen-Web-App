@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../styles/product.css';
+import { ProductContext } from '../../ClientPage/ProductContext';
 
 const Product = () => {
-  const [products, setProducts] = useState([]);
+  const { addProduct, products } = useContext(ProductContext);
   const [productName, setProductName] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [productQuantity, setProductQuantity] = useState('');
@@ -15,14 +16,13 @@ const handleAddProduct = () => {
       name: productName,
       description: productDescription,
       quantity: productQuantity,
-      mealType: mealType,
+      mealType,
       image: productImage,
       price: productPrice,
     };
 
-      setProducts([...products, newProduct]);
+    addProduct(newProduct);
 
-    
     setProductName('');
     setProductDescription('');
     setProductQuantity('');
@@ -36,17 +36,17 @@ const handleAddProduct = () => {
   };
 
   return (
-     <div className="product-form-container">
-      <h2>Add Product</h2>
-      <div className="product-card">
-        <div className="product-field">
-          <label>Product Name</label>
-          <input
-            type="text"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            required
-          />
+        <div className="product-form-container">
+        <h2>Add Product</h2>
+        <div className="product-card">
+          <div className="product-field">
+            <label>Product Name</label>
+            <input
+              type="text"
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
+              required
+            />
         </div>
         
         <div className="product-field">
@@ -110,7 +110,6 @@ const handleAddProduct = () => {
             <p>{product.description}</p>
             <p>Quantity: {product.quantity}</p>
             <p>Meal Type: {product.mealType}</p>
-           
             <p>Price: Ghc{product.price}</p>
           </div>
         ))}

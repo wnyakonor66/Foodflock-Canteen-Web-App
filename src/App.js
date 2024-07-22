@@ -13,77 +13,79 @@ import Product from "./Component/pages/Product";
 import OrderMenu from "./Component/pages/OrderMenu";
 import Settings from "./Component/pages/Settings";
 import Support from "./Component/pages/Support";
-
+import { ProductProvider } from "./ClientPage/ProductContext";
 
 function App() {
-	const route = createBrowserRouter([
-		{
-			path: "/",
-			element: <Signup />,
-		},
-		{
-			path: "/login",
-			element: <Login />,
-		},
-		{
-			path: "/questions",
-			element: <QuestionPage />,
-		},
-		{
-			path: "/vendorForms",
-			element: <VendorForm />,
-		},
-		{
-			path: "/client",
-			element: <ClientPage />,
-			children: [
-				{
-					path: "order",
-					element: <Order />,
-				},
-				{
-					path: "",
-					element: <Meals />,
-				},
-			],
-		},
-	
-		{
-			path: "/vendorsPage",
-			element: <VendorsPage />,
-			children: [
-				{
-					path: "",
-					element: <Profile />,
-				},
-                {
-					path: "profile",
-					element: <Profile />,
-				},
-				{
-					path: "product",
-					element: <Product />
-				},
-				{
-					path: "order",
-					element: <OrderMenu />
-				},
-				{
-					path: "settings",
-					element: <Settings/>
-				},
-				{
-					path: "support",
-					element: <Support/>
-				},
-			],
-		},
-	]);
-	return (
-		<div className="App h-full overflow-x-hidden">
-			<RouterProvider router={route} />
-		</div>
-	);
+  const route = createBrowserRouter([
+    {
+      path: "/",
+      element: <Signup />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/questions",
+      element: <QuestionPage />,
+    },
+    {
+      path: "/vendorForms",
+      element: <VendorForm />,
+    },
+    {
+      path: "/client",
+      element: <ClientPage />,
+      children: [
+        {
+          path: "order",
+          element: <Order />,
+        },
+        {
+          path: "",
+          element: <Meals />,
+        },
+      ],
+    },
+    {
+      path: "/vendorsPage",
+      element: <VendorsPage />,
+      children: [
+        {
+          path: "",
+          element: <Profile />,
+        },
+        {
+          path: "profile",
+          element: <Profile />,
+        },
+        {
+          path: "product",
+          element: <Product />,
+        },
+        {
+          path: "order",
+          element: <OrderMenu />,
+        },
+        {
+          path: "settings",
+          element: <Settings />,
+        },
+        {
+          path: "support",
+          element: <Support />,
+        },
+      ],
+    },
+  ]);
+
+  return (
+    <div className="App h-full overflow-x-hidden">
+      <ProductProvider>
+        <RouterProvider router={route} />
+      </ProductProvider>
+    </div>
+  );
 }
 
 export default App;
