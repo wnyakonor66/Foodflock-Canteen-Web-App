@@ -16,28 +16,24 @@ export default function Profile() {
 				<div className="mt-4 flex flex-row flex-wrap">
 					<InputText
 						name={"Business Name"}
-						value={"Business Name"}
 						id={"businessName"}
 						placeholder={"Enter your business name"}
 					/>
 
 					<InputText
 						name={"Business Contact"}
-						value={"Business Contact"}
 						id={"contact"}
 						placeholder={"Enter your Business Contact"}
 					/>
 
 					<InputText
 						name={"Business Email"}
-						value={"Business Email"}
 						id={"email"}
 						placeholder={"Enter your Business Email"}
 					/>
 
 					<InputText
 						name={"Location"}
-						value={""}
 						id={"email"}
 						placeholder={"Enter your Business Location"}
 					/>
@@ -46,12 +42,11 @@ export default function Profile() {
 						name="Makes Delivery"
 						id="delivery"
 						options={["Yes", "No"]}
-						value={""}
+						
 					/>
 					<br />
 					<InputTextArea
 						name={"Description"}
-						value={""}
 						id={"description"}
 						placeholder={"Enter your Business Description"}
 					/>

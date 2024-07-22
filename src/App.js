@@ -14,6 +14,8 @@ import OrderMenu from "./Component/pages/OrderMenu";
 import Settings from "./Component/pages/Settings";
 import Support from "./Component/pages/Support";
 import { ProductProvider } from "./ClientPage/ProductContext";
+import { VendorProvider } from "./ClientPage/VendorContext";
+
 
 function App() {
   const route = createBrowserRouter([
@@ -81,9 +83,11 @@ function App() {
 
   return (
     <div className="App h-full overflow-x-hidden">
-      <ProductProvider>
-        <RouterProvider router={route} />
-      </ProductProvider>
+      <VendorProvider>
+        <ProductProvider>
+          <RouterProvider router={route} />
+        </ProductProvider>
+      </VendorProvider> 
     </div>
   );
 }

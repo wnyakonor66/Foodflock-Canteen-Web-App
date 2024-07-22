@@ -1,0 +1,30 @@
+.vendor-display-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.vendor-overview,
+.vendor-description,
+.vendor-contact {
+    margin-bottom: 16px;
+}
+
+.vendor-overview h2,
+.vendor-description h2,
+.vendor-contact h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.vendor-contact a {
+    color: #1e90ff;
+    text-decoration: none;
+}
+
+.vendor-contact a:hover {
+    text-decoration: underline;
+}
