@@ -1,0 +1,48 @@
+.support-help {
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.support-help h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.support-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.option {
+    flex: 1 1 200px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+
+.option h3 {
+    margin: 0 0 10px;
+}
+
+.option p {
+    margin: 0 0 15px;
+}
+
+.option a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.option a:hover {
+    text-decoration: underline;
+}
+.support-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}

@@ -12,6 +12,7 @@ import Meals from "./ClientPage/Meals";
 import Product from "./Component/pages/Product";
 import OrderMenu from "./Component/pages/OrderMenu";
 import Settings from "./Component/pages/Settings";
+import Support from "./Component/pages/Support";
 
 
 function App() {
@@ -70,6 +71,10 @@ function App() {
 				{
 					path: "settings",
 					element: <Settings/>
+				},
+				{
+					path: "support",
+					element: <Support/>
 				},
 			],
 		},
