@@ -11,6 +11,7 @@ import Order from "./ClientPage/Order";
 import Meals from "./ClientPage/Meals";
 import Product from "./Component/pages/Product";
 import OrderMenu from "./Component/pages/OrderMenu";
+import Settings from "./Component/pages/Settings";
 
 
 function App() {
@@ -65,6 +66,10 @@ function App() {
 				{
 					path: "order",
 					element: <OrderMenu />
+				},
+				{
+					path: "settings",
+					element: <Settings/>
 				},
 			],
 		},
