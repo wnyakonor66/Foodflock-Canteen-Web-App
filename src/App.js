@@ -15,7 +15,7 @@ import Settings from "./Component/pages/Settings";
 import Support from "./Component/pages/Support";
 import { ProductProvider } from "./ClientPage/ProductContext";
 import { VendorProvider } from "./ClientPage/VendorContext";
-
+import Vendor from "./ClientPage/Vendor";
 
 function App() {
   const route = createBrowserRouter([
@@ -47,6 +47,10 @@ function App() {
           path: "",
           element: <Meals />,
         },
+        {
+          path: "vendors",
+          element: <Vendor />
+        }
       ],
     },
     {
