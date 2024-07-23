@@ -16,6 +16,8 @@ import Support from "./Component/pages/Support";
 import { ProductProvider } from "./ClientPage/ProductContext";
 import { VendorProvider } from "./ClientPage/VendorContext";
 import Vendor from "./ClientPage/Vendor";
+import OrderForm from "./ClientPage/Order";
+import { PaymentProvider } from "./ClientPage/PaymentContext";
 
 function App() {
   const route = createBrowserRouter([
@@ -50,6 +52,10 @@ function App() {
         {
           path: "vendors",
           element: <Vendor />
+        },
+        {
+          path: "orders",
+          element: <OrderForm/>
         }
       ],
     },
@@ -87,11 +93,13 @@ function App() {
 
   return (
     <div className="App h-full overflow-x-hidden">
+     <PaymentProvider>
       <VendorProvider>
         <ProductProvider>
           <RouterProvider router={route} />
         </ProductProvider>
-      </VendorProvider> 
+        </VendorProvider> 
+      </PaymentProvider> 
     </div>
   );
 }
