@@ -13,8 +13,8 @@ export default function InputSelect({ id, name, onChange, options, value }) {
 				className="border border-gray-100 p-1 rounded-md outline-none w-72 mb-10 bg-transparent"
 			>
 				<option value="">Select</option>
-				{options.map((option) => (
-					<option value={option}>{option}</option>
+				{options.map((option, index) => (
+					<option key={index} value={option}>{option}</option>
 				))}
 			</select>
 		</div>

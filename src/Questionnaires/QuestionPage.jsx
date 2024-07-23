@@ -20,9 +20,9 @@ const QuestionPage = () => {
 				throw new Error(response.statusText);
 			}
 			if (choice === "vendor") {
-				navigate("/vendorForms");
+				navigate("/vendorsPage");
 			} else {
-				navigate("/VendorsPage");
+				navigate("/client");
 			}
 		} catch (error) {
 			setError(error.message);

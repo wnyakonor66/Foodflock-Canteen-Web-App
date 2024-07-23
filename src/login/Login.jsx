@@ -12,7 +12,7 @@ const Login = () => {
 	useEffect(() => {
 		if (user) {
 			if (user.role === "vendor") {
-				navigate("/vendorForms");
+				navigate("/vendorsPage");
 			} else if (user.role === "client") {
 				navigate("/client")
 			} else {
