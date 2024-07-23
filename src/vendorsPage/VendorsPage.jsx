@@ -4,7 +4,6 @@ import { Navbar } from '../Component/Navbar';
 import './vendorspage.css';
 import { Outlet } from "react-router-dom";
 
-
 const VendorsPage = () => {
   return (
      <div className="V-screen">

@@ -4,11 +4,58 @@ import InputText from "../../Component/InputText";
 import InputSelect from "../../Component/InputSelect";
 import PropValue from "../../Component/PropValue";
 import InputTextArea from "../../Component/InputTextArea";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import {
+	getBusiness,
+	updateBusiness,
+	addBusiness,
+} from "../../thunk_action_creators/business";
 
 export default function Profile() {
+	const business = useSelector((state) => state.business.data);
+	const error = useSelector((state) => state.business.error);
+	const loading = useSelector((state) => state.business.isLoading);
+	const [businessData, setBusinessData] = useState({
+		name: "",
+		phone: "",
+		email: "",
+		description: "",
+		makes_delivery: "",
+	});
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (error == null && business == null && !loading) {
+			dispatch(getBusiness());
+		}
+	}, [business, error, loading]);
+
+	useEffect(() => {
+		if (business != null) {
+			setBusinessData(business);
+		}
+	}, [business]);
+
+	const createOrUpdateBusiness = (event) => {
+		event.preventDefault();
+
+		if (business == null) {
+			dispatch(addBusiness(businessData));
+			return;
+		}
+
+        console.log(businessData)
+		dispatch(updateBusiness(businessData));
+	};
+
 	return (
 		<div className="flex flex-row flex-wrap w-full h-full bg-gray-200 p-4 overflow-x-hidden">
-			<div className="flex flex-col bg-white h-fit p-3 shadow-md mr-5 rounded-sm w-[65%]">
+			<form
+				className="flex flex-col bg-white h-fit p-3 shadow-md mr-5 rounded-sm w-[65%]"
+				onSubmit={createOrUpdateBusiness}
+			>
 				<div className="flex flex-row items-center">
 					<CatNumber number={1} />
 					<span className="ml-2 font-bold">Business Information</span>
@@ -16,48 +63,83 @@ export default function Profile() {
 				<div className="mt-4 flex flex-row flex-wrap">
 					<InputText
 						name={"Business Name"}
-						id={"businessName"}
+						id={"name"}
 						placeholder={"Enter your business name"}
+						value={businessData.name}
+						onChange={(e) => {
+							setBusinessData({ ...businessData, name: e.target.value });
+						}}
 					/>
 
 					<InputText
 						name={"Business Contact"}
-						id={"contact"}
+						id={"phone"}
 						placeholder={"Enter your Business Contact"}
+						value={businessData.phone}
+						onChange={(e) => {
+							setBusinessData({ ...businessData, phone: e.target.value });
+						}}
 					/>
 
 					<InputText
 						name={"Business Email"}
 						id={"email"}
 						placeholder={"Enter your Business Email"}
+						value={businessData.email}
+						onChange={(e) => {
+							setBusinessData({ ...businessData, email: e.target.value });
+						}}
 					/>
 
 					<InputText
 						name={"Location"}
-						id={"email"}
+						id={"location"}
 						placeholder={"Enter your Business Location"}
 					/>
 
 					<InputSelect
 						name="Makes Delivery"
-						id="delivery"
+						id="makes_delivery"
 						options={["Yes", "No"]}
-						
+						value={businessData.makes_delivery}
+						onChange={(e) => {
+							setBusinessData({
+								...businessData,
+								makes_delivery: e.target.value,
+							});
+						}}
 					/>
 					<br />
 					<InputTextArea
 						name={"Description"}
 						id={"description"}
 						placeholder={"Enter your Business Description"}
+						value={businessData.description}
+						onChange={(e) => {
+							setBusinessData({ ...businessData, description: e.target.value });
+						}}
 					/>
 				</div>
 
 				<div>
-					<button className="mt-4 bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-4 rounded">
-						Submit Changes
+					<button
+						className="mt-4 bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-4 rounded mr-5"
+						type="submit"
+						disabled={loading}
+					>
+						{business ? "Submit Changes" : "Create Business"}
 					</button>
+					{error && (
+						<button
+							className="mt-4 bg-green-500 hover:bg-green-400 text-white font-bold py-2 px-4 rounded"
+							onClick={() => dispatch(getBusiness())}
+							disabled={loading}
+						>
+							Fetch Business
+						</button>
+					)}
 				</div>
-			</div>
+			</form>
 
 			<div className="flex flex-col bg-white h-fit p-3 mr-5 shadow-md rounded-sm w-[30%]">
 				<div className="flex flex-row items-center">
