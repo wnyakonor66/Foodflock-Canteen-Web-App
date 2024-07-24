@@ -9,7 +9,11 @@ import InputFile from "../InputFile";
 import CatNumber from "../CatNumber";
 import PropValue from "../PropValue";
 import { useSelector, useDispatch } from "react-redux";
-import { addMeal, getMeals } from "../../thunk_action_creators/meal";
+import {
+	addMeal,
+	getMeals,
+	updateMeal,
+} from "../../thunk_action_creators/meal";
 
 const Product = () => {
 	const { addProduct, products } = useContext(ProductContext);
@@ -27,6 +31,7 @@ const Product = () => {
 		free: "",
 	});
 	const [editMode, setEditMode] = useState(false);
+	const [editMealID, setEditMealID] = useState(null);
 
 	const meals = useSelector((state) => state.meals.data);
 	const loading = useSelector((state) => state.meals.isLoading);
@@ -47,11 +52,13 @@ const Product = () => {
 		setProductName(meals[index].name);
 		setProductDescription(meals[index].description);
 		setProductQuantity(meals[index].quantity);
-		setMealType(meals[index].mealType);
+		setMealType(meals[index].meal_type);
 		setProductImage(
 			`${process.env.REACT_APP_SERVER_URL}/${meals[index].image}`
 		);
 		setProductPrice(meals[index].price);
+		setEditMealID(meals[index]._id);
+        setChargeType(meals[index].charge_type);
 
 		const accs = [];
 
@@ -75,6 +82,7 @@ const Product = () => {
 		setAccompaniments([]);
 		setChargeType("");
 		setAccompanimentData({ name: "", price: 0, free: "" });
+		setEditMealID(null);
 	};
 
 	const addAccompaniment = () => {
@@ -87,7 +95,20 @@ const Product = () => {
 		setAccompaniments([...accompaniments, newAccompaniment]);
 	};
 
-	const updateProduct = () => {};
+	const updateProduct = () => {
+		const is_url = typeof productImage === "string";
+		const form_data = new FormData();
+		form_data.append("name", productName || "");
+		form_data.append("description", productDescription || "");
+		form_data.append("meal_type", mealType || "");
+		form_data.append("image", is_url ? null : productImage);
+		form_data.append("price", productPrice || 0);
+		form_data.append("accompaniments", JSON.stringify(accompaniments));
+		form_data.append("charge_type", chargeType || "");
+
+		dispatch(updateMeal(form_data, editMealID));
+        cancelEdit();
+	};
 
 	const submitProduct = () => {
 		const form_data = new FormData();
@@ -132,7 +153,7 @@ const Product = () => {
 						id={"mealType"}
 						onChange={(e) => setMealType(e.target.value)}
 						value={mealType}
-						options={["Breakfast", "Lunch", "Dinner", "Snack", "Others"]}
+						options={["breakfast", "lunch", "dinner", "snack", "other"]}
 					/>
 					<InputFile
 						name={"Product Image"}
@@ -333,7 +354,7 @@ const Product = () => {
 									value={product.description}
 								/>
 								<PropValue property={"Price"} value={product.price} />
-								<PropValue property={"Meal Type"} value={product.mealType} />
+								<PropValue property={"Meal Type"} value={product.meal_type} />
 							</div>
 							{/* delete button */}
 							<button className="bg-red-500 hover:bg-red-400 mt-4 text-white font-bold py-2 px-4 rounded justify-self-end">

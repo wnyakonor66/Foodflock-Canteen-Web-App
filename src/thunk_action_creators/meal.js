@@ -1,4 +1,4 @@
-import { get, failed, start, add } from "../features/meals/slice";
+import { get, failed, start, add, update } from "../features/meals/slice";
 import { server_url } from "../static/variables";
 
 export const getMeals = () => {
@@ -40,6 +40,27 @@ export const addMeal = (form_data) => {
 			}
 			const data = await response.json();
 			dispatch(add(data.meals));
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};
+
+export const updateMeal = (updates, meal_id) => {
+	return async (dispatch) => {
+		dispatch(start());
+		try {
+			const response = await fetch(`${server_url}/meals/${meal_id}`, {
+				method: "PUT",
+				body: updates,
+                credentials: "include",
+			});
+
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
+			const data = await response.json();
+			dispatch(update(data.meals));
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
