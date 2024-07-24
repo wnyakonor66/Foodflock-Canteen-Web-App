@@ -26,6 +26,7 @@ const Product = () => {
 		price: 0,
 		free: "",
 	});
+	const [editMode, setEditMode] = useState(false);
 
 	const meals = useSelector((state) => state.meals.data);
 	const loading = useSelector((state) => state.meals.isLoading);
@@ -37,24 +38,43 @@ const Product = () => {
 		if (!loading && meals === null && error === null) dispatch(getMeals());
 	}, [meals, loading]);
 
-	const handleAddProduct = () => {
-		const newProduct = {
-			name: productName,
-			description: productDescription,
-			quantity: productQuantity,
-			mealType,
-			image: productImage,
-			price: productPrice,
-		};
+	useEffect(() => {
+		if (!loading) dispatch(getMeals());
+	}, []);
 
-		addProduct(newProduct);
+	const startEdit = (index) => {
+		setEditMode(true);
+		setProductName(meals[index].name);
+		setProductDescription(meals[index].description);
+		setProductQuantity(meals[index].quantity);
+		setMealType(meals[index].mealType);
+		setProductImage(
+			`${process.env.REACT_APP_SERVER_URL}/${meals[index].image}`
+		);
+		setProductPrice(meals[index].price);
 
+		const accs = [];
+
+		for (let i = 0; i < meals[index].accompaniments.length; i++) {
+			const { name, price, isFree } = meals[index].accompaniments[i];
+
+			accs.push({ name, price, free: isFree ? "Yes" : "No" });
+		}
+
+		setAccompaniments(accs);
+	};
+
+	const cancelEdit = () => {
+		setEditMode(false);
 		setProductName("");
 		setProductDescription("");
 		setProductQuantity(0);
 		setMealType("");
 		setProductImage(null);
 		setProductPrice(0);
+		setAccompaniments([]);
+		setChargeType("");
+		setAccompanimentData({ name: "", price: 0, free: "" });
 	};
 
 	const addAccompaniment = () => {
@@ -67,9 +87,7 @@ const Product = () => {
 		setAccompaniments([...accompaniments, newAccompaniment]);
 	};
 
-	const handleImageUpload = (e) => {
-		setProductImage(URL.createObjectURL(e.target.files[0]));
-	};
+	const updateProduct = () => {};
 
 	const submitProduct = () => {
 		const form_data = new FormData();
@@ -90,6 +108,8 @@ const Product = () => {
 		setProductImage(null);
 		setProductPrice(0);
 		setAccompaniments([]);
+		setChargeType("");
+		setAccompanimentData({ name: "", price: 0, free: "" });
 	};
 
 	return (
@@ -134,7 +154,7 @@ const Product = () => {
 						id={"chargeType"}
 						onChange={(e) => setChargeType(e.target.value)}
 						value={chargeType}
-						options={["Price", "Quantity"]}
+						options={["price", "quantity"]}
 					/>
 					<InputTextArea
 						name={"Product Description"}
@@ -142,7 +162,6 @@ const Product = () => {
 						placeholder={"Enter your product description"}
 						onChange={(e) => setProductDescription(e.target.value)}
 						value={productDescription}
-						fixedHeight
 						maxLength={250}
 					/>
 				</div>
@@ -221,11 +240,22 @@ const Product = () => {
 					</button>
 				</div>
 				<button
-					className="mt-4 bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-4 rounded"
-					onClick={submitProduct}
+					className="mt-4 bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-4 rounded mr-2"
+					onClick={() => (editMode ? updateProduct() : submitProduct())}
+					disabled={loading}
 				>
-					Add Product
+					{editMode ? "Update Product" : "Add Product"}
 				</button>
+
+				{/* cancel edit */}
+				{editMode && (
+					<button
+						className="mt-4 bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-4 rounded"
+						onClick={() => cancelEdit()}
+					>
+						Cancel Edit
+					</button>
+				)}
 			</div>
 
 			<div className="product-form-container flex flex-col w-[30%] h-fit">
@@ -239,7 +269,11 @@ const Product = () => {
 						{productImage && (
 							<img
 								className="w-full h-full"
-								src={URL.createObjectURL(productImage)}
+								src={
+									editMode && typeof productImage === "string"
+										? productImage
+										: URL.createObjectURL(productImage)
+								}
 								alt="Product"
 							/>
 						)}
@@ -276,10 +310,11 @@ const Product = () => {
 					<span className="ml-2 font-bold">Product Listing</span>
 				</div>
 				<div className="flex flex-row">
-					{meals.map((product, index) => (
+					{meals?.map((product, index) => (
 						<div
 							key={index}
 							className="product-card w-80 mr-5 shadow-md cursor-pointer hover:shadow-2xl"
+							onClick={() => startEdit(index)}
 						>
 							<div className="flex flex-col w-full h-52 border justify-center items-center">
 								{product.image && (
