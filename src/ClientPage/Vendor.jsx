@@ -1,17 +1,19 @@
-import React, { useContext,useState } from 'react';
-import { VendorContext } from './VendorContext'; 
+import React, { useContext, useState } from "react";
+import { VendorContext } from "./VendorContext";
+import SearchBar from "../Component/SearchBar";
+import VendorCard from "../Component/VendorCard";
 
 const Vendor = () => {
-    const { vendors } = useContext(VendorContext);
-    const [expandedIndex, setExpandedIndex] = useState(null);
+	const { vendors } = useContext(VendorContext);
+	const [expandedIndex, setExpandedIndex] = useState(null);
 
-    const toggleDetails = (index) => {
-        setExpandedIndex(expandedIndex === index ? null : index);
-    };
+	const toggleDetails = (index) => {
+		setExpandedIndex(expandedIndex === index ? null : index);
+	};
 
-    return (
-        <div className="vendor-display-container p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {vendors.map((vendor, index) => (
+	return (
+		<div className="flex flex-col pt-3 px-3">
+			{/* {vendors.map((vendor, index) => (
                 <div key={index} className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
                     <div className="p-5">
                         <div className="vendor-card-content">
@@ -44,9 +46,14 @@ const Vendor = () => {
                         )}
                     </div>
                 </div>
-            ))}
-        </div>
-    );
+            ))} */}
+			<SearchBar />
+			<div className="mt-5 flex flex-row">
+				<VendorCard />
+				<VendorCard />
+			</div>
+		</div>
+	);
 };
 
 export default Vendor;
