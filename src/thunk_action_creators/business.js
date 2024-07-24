@@ -70,3 +70,27 @@ export const updateBusiness = (form_data) => {
 		}
 	};
 };
+
+export const getAllBusinesses = () => {
+	return async (dispatch) => {
+		dispatch(start());
+
+		try {
+			const response = await fetch(`${server_url}/business/all`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
+			const data = await response.json();
+
+			dispatch(get(data.businesses));
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};
