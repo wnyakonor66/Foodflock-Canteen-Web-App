@@ -38,6 +38,10 @@ export default function Profile() {
 		}
 	}, [business]);
 
+	useEffect(() => {
+		if (!loading) dispatch(getBusiness());
+	}, []);
+
 	const createOrUpdateBusiness = (event) => {
 		event.preventDefault();
 
@@ -46,7 +50,7 @@ export default function Profile() {
 			return;
 		}
 
-        console.log(businessData)
+		console.log(businessData);
 		dispatch(updateBusiness(businessData));
 	};
 
@@ -100,8 +104,8 @@ export default function Profile() {
 					<InputSelect
 						name="Makes Delivery"
 						id="makes_delivery"
-						options={["Yes", "No"]}
-						value={businessData.makes_delivery}
+						options={["yes", "no"]}
+						value={businessData.makes_delivery ? "yes" : "no"}
 						onChange={(e) => {
 							setBusinessData({
 								...businessData,

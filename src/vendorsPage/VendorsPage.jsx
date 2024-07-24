@@ -8,7 +8,7 @@ const VendorsPage = () => {
   return (
      <div className="V-screen">
 			<Navbar />
-			<div className="main-content">
+			<div className="main-content overflow-hidden">
 				<SideBar />
 				<div className="content-area">
 					<Outlet />

@@ -1,94 +1,85 @@
-import { add, failed, start, get } from "../features/business/slice";
+import { get, failed, start, add, update } from "../features/meals/slice";
 import { server_url } from "../static/variables";
 
-export const addBusiness = (form_data) => {
+export const getMeals = () => {
 	return async (dispatch) => {
 		dispatch(start());
 		try {
-			const response = await fetch(`${server_url}/auth/register/business`, {
+			const response = await fetch(`${server_url}/meals`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+
+			const data = await response.json();
+			dispatch(get(data.meals));
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};
+
+export const addMeal = (form_data) => {
+	console.log(form_data);
+	return async (dispatch) => {
+		dispatch(start());
+		try {
+			const response = await fetch(`${server_url}/meals`, {
 				method: "POST",
-				body: JSON.stringify(form_data),
-				headers: {
-					"Content-Type": "application/json",
-				},
+				body: form_data,
+				// headers: {
+				// 	"Content-Type": "multipart/form-data",
+				// },
 				credentials: "include",
 			});
 			if (!response.ok) {
 				throw new Error(response.statusText);
 			}
 			const data = await response.json();
-			dispatch(add(data.business));
+			dispatch(add(data.meals));
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
 	};
 };
 
-export const getBusiness = () => {
-	return async (dispatch) => {
-		dispatch(start());
-
-		try {
-			const response = await fetch(`${server_url}/business`, {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				credentials: "include",
-			});
-			if (!response.ok) {
-				throw new Error(response.statusText);
-			}
-			const data = await response.json();
-
-			dispatch(get(data.business));
-		} catch (error) {
-			dispatch(failed(error.message));
-		}
-	};
-};
-
-export const updateBusiness = (form_data) => {
+export const updateMeal = (updates, meal_id) => {
 	return async (dispatch) => {
 		dispatch(start());
 		try {
-			const response = await fetch(`${server_url}/business`, {
+			const response = await fetch(`${server_url}/meals/${meal_id}`, {
 				method: "PUT",
-				body: JSON.stringify({updates: form_data}),
-				headers: {
-					"Content-Type": "application/json",
-				},
+				body: updates,
 				credentials: "include",
 			});
+
 			if (!response.ok) {
 				throw new Error(response.statusText);
 			}
 			const data = await response.json();
-			dispatch(get(data.business));
+			dispatch(update(data.meals));
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
 	};
 };
 
-export const getAllBusinesses = () => {
+export const deleteMeal = (meal_id) => {
 	return async (dispatch) => {
 		dispatch(start());
-
 		try {
-			const response = await fetch(`${server_url}/business/all`, {
-				method: "GET",
+			const response = await fetch(`${server_url}/meals/${meal_id}`, {
+				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
 				},
 				credentials: "include",
 			});
-			if (!response.ok) {
-				throw new Error(response.statusText);
-			}
-			const data = await response.json();
 
-			dispatch(get(data.businesses));
+			const data = await response.json();
+			dispatch(get(data.meals));
 		} catch (error) {
 			dispatch(failed(error.message));
 		}

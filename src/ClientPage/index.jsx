@@ -77,9 +77,8 @@ const ClientPage = () => {
                         </div>
                     </div>
                 </nav>
-                <div className="content-container flex-1 p-5">
+                <div className="content-container flex-1">
                     <Outlet />
-                    <vendor />
                 </div>
             </div>
         </>

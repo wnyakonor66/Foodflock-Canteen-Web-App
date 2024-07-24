@@ -3,7 +3,6 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid rgba(30, 153, 153, 0.87);;
 }
 
 .search {

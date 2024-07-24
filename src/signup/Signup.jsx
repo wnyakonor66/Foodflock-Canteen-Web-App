@@ -48,14 +48,14 @@ const Signup = () => {
 						autoComplete="off"
 						id="password"
 					/>
-					<button type="submit" class="btn btn-success">
+					<button type="submit" className="btn btn-success">
 						Sign Up
 					</button>
 				</div>
 			</form>
 			<div className="login">
 				<p>Already have an account ?</p>
-				<Link to="/login" type="submit" class="btn btn-primary">
+				<Link to="/login" type="submit" className="btn btn-primary">
 					Login
 				</Link>
 			</div>
