@@ -11,6 +11,7 @@ import PropValue from "../PropValue";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	addMeal,
+	deleteMeal,
 	getMeals,
 	updateMeal,
 } from "../../thunk_action_creators/meal";
@@ -58,7 +59,7 @@ const Product = () => {
 		);
 		setProductPrice(meals[index].price);
 		setEditMealID(meals[index]._id);
-        setChargeType(meals[index].charge_type);
+		setChargeType(meals[index].charge_type);
 
 		const accs = [];
 
@@ -107,7 +108,7 @@ const Product = () => {
 		form_data.append("charge_type", chargeType || "");
 
 		dispatch(updateMeal(form_data, editMealID));
-        cancelEdit();
+		cancelEdit();
 	};
 
 	const submitProduct = () => {
@@ -131,6 +132,10 @@ const Product = () => {
 		setAccompaniments([]);
 		setChargeType("");
 		setAccompanimentData({ name: "", price: 0, free: "" });
+	};
+
+	const removeMeal = (id) => {
+		dispatch(deleteMeal(id));
 	};
 
 	return (
@@ -357,7 +362,13 @@ const Product = () => {
 								<PropValue property={"Meal Type"} value={product.meal_type} />
 							</div>
 							{/* delete button */}
-							<button className="bg-red-500 hover:bg-red-400 mt-4 text-white font-bold py-2 px-4 rounded justify-self-end">
+							<button
+								className="bg-red-500 hover:bg-red-400 mt-4 text-white font-bold py-2 px-4 rounded justify-self-end"
+								onClick={(event) => {
+									event.stopPropagation();
+									removeMeal(product._id);
+								}}
+							>
 								<MdDelete />
 							</button>
 						</div>

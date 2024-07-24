@@ -2,7 +2,6 @@ import { get, failed, start, add, update } from "../features/meals/slice";
 import { server_url } from "../static/variables";
 
 export const getMeals = () => {
-	console.log("Called");
 	return async (dispatch) => {
 		dispatch(start());
 		try {
@@ -53,7 +52,7 @@ export const updateMeal = (updates, meal_id) => {
 			const response = await fetch(`${server_url}/meals/${meal_id}`, {
 				method: "PUT",
 				body: updates,
-                credentials: "include",
+				credentials: "include",
 			});
 
 			if (!response.ok) {
@@ -61,6 +60,26 @@ export const updateMeal = (updates, meal_id) => {
 			}
 			const data = await response.json();
 			dispatch(update(data.meals));
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};
+
+export const deleteMeal = (meal_id) => {
+	return async (dispatch) => {
+		dispatch(start());
+		try {
+			const response = await fetch(`${server_url}/meals/${meal_id}`, {
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+
+			const data = await response.json();
+			dispatch(get(data.meals));
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
