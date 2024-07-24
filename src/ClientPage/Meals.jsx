@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import SearchBar from "../Component/SearchBar";
 import { ProductContext } from "./ProductContext";
+import ClientMealCard from "../Component/ClientMealCard";
 
 export default function Meals() {
-  const { products } = useContext(ProductContext);
+	const { products } = useContext(ProductContext);
 
-  return (
-    <div className="flex flex-col pl-5">
-      <div></div>
+	return (
+		<div className="flex flex-col pt-3 px-3">
+			{/* <div></div>
       <div className="flex flex-row mt-2 flex-wrap justify-start">
         <div className="w-full mb-4">
           <SearchBar />
@@ -37,7 +38,14 @@ export default function Meals() {
             </div>
           ))
         )}
-      </div>
-    </div>
-  );
+      </div> */}
+			<SearchBar />
+
+			<div className="flex flex-row flex-wrap mt-5">
+                <ClientMealCard />
+                <ClientMealCard />
+                <ClientMealCard />
+            </div>
+		</div>
+	);
 }
