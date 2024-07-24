@@ -5,10 +5,9 @@ import { PiForkKnifeFill } from 'react-icons/pi';
 import { BiSolidCategory } from 'react-icons/bi';
 import { FaTruck } from 'react-icons/fa';
 import { Outlet, useNavigate } from 'react-router-dom';
-import '../ClientPage/clientPage.css';
-import './Vendor';
 import {Navbar} from '../Component/Navbar';
-
+import Vendor from './vendor';
+import './clientPage.css';
 
 const ClientPage = () => {
 	const navigate = useNavigate();
