@@ -70,6 +70,7 @@ export const VendorProvider = ({ children }) => {
                 twitter: "https://twitter.com/business5"
             }
         }
+        
     ]);
 
     const updateVendor = (index, newData) => {

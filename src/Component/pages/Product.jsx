@@ -128,9 +128,7 @@ const Product = () => {
 			</div>
 
 			<div className="product-form-container flex flex-col w-[100%] h-fit mr-10 mt-5">
-				{/* <div className="header-container">
-					<h3>Product Listing</h3>
-				</div> */}
+				
 				<div className="flex flex-row items-center mb-3">
 					<CatNumber number={3} />
 					<span className="ml-2 font-bold">Product Listing</span>
