@@ -8,10 +8,11 @@ export default function InputFile({ id, placeholder, name, value, onChange }) {
 			</label>
 			<input
 				id={id}
-                name={id}
+				name={id}
 				onChange={onChange}
 				className="border border-gray-100 p-1 rounded-md outline-none w-72 mb-10"
-                type="file"
+				type="file"
+				accept="image/*"
 			/>
 		</div>
 	);

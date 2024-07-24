@@ -8,6 +8,8 @@ import InputSelect from "../InputSelect";
 import InputFile from "../InputFile";
 import CatNumber from "../CatNumber";
 import PropValue from "../PropValue";
+import { useSelector, useDispatch } from "react-redux";
+import { addMeal, getMeals } from "../../thunk_action_creators/meal";
 
 const Product = () => {
 	const { addProduct, products } = useContext(ProductContext);
@@ -18,11 +20,22 @@ const Product = () => {
 	const [productImage, setProductImage] = useState(null);
 	const [productPrice, setProductPrice] = useState(0);
 	const [accompaniments, setAccompaniments] = useState([]);
+	const [chargeType, setChargeType] = useState("");
 	const [accompanimentData, setAccompanimentData] = useState({
 		name: "",
 		price: 0,
-		isFree: "",
+		free: "",
 	});
+
+	const meals = useSelector((state) => state.meals.data);
+	const loading = useSelector((state) => state.meals.isLoading);
+	const error = useSelector((state) => state.meals.error);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		console.log(meals);
+		if (!loading && meals === null && error === null) dispatch(getMeals());
+	}, [meals, loading]);
 
 	const handleAddProduct = () => {
 		const newProduct = {
@@ -48,7 +61,7 @@ const Product = () => {
 		const newAccompaniment = {
 			name: accompanimentData.name,
 			price: accompanimentData.price,
-			isFree: accompanimentData.isFree,
+			free: accompanimentData.free,
 		};
 
 		setAccompaniments([...accompaniments, newAccompaniment]);
@@ -58,8 +71,29 @@ const Product = () => {
 		setProductImage(URL.createObjectURL(e.target.files[0]));
 	};
 
+	const submitProduct = () => {
+		const form_data = new FormData();
+		form_data.append("name", productName || "");
+		form_data.append("description", productDescription || "");
+		form_data.append("meal_type", mealType || "");
+		form_data.append("image", productImage || null);
+		form_data.append("price", productPrice || 0);
+		form_data.append("accompaniments", JSON.stringify(accompaniments));
+		form_data.append("charge_type", chargeType || "");
+
+		dispatch(addMeal(form_data));
+
+		setProductName("");
+		setProductDescription("");
+		setProductQuantity(0);
+		setMealType("");
+		setProductImage(null);
+		setProductPrice(0);
+		setAccompaniments([]);
+	};
+
 	return (
-		<div className="w-full h-full flex flex-row flex-wrap mt-4 ml-4 overflow-x-hidden">
+		<div className="w-full h-full flex flex-row flex-wrap mt-4 ml-4 overflow-x-hidden overflow-y-auto">
 			<div className="product-form-container w-[65%] h-fit mr-5">
 				<div className="flex flex-row items-center mb-3">
 					<CatNumber number={1} />
@@ -73,13 +107,34 @@ const Product = () => {
 						onChange={(e) => setProductName(e.target.value)}
 						value={productName}
 					/>
+					<InputSelect
+						name={"Meal Type"}
+						id={"mealType"}
+						onChange={(e) => setMealType(e.target.value)}
+						value={mealType}
+						options={["Breakfast", "Lunch", "Dinner", "Snack", "Others"]}
+					/>
+					<InputFile
+						name={"Product Image"}
+						id={"productImage"}
+						// onChange={handleImageUpload}
+						onChange={(e) => setProductImage(e.target.files[0])}
+						value={productImage}
+					/>
 					<InputText
-						name={"Quantity"}
+						name={"Price"}
 						type={"number"}
-						id={"productQuantity"}
-						placeholder={"Enter your product quantity"}
-						onChange={(e) => setProductQuantity(e.target.value)}
-						value={productQuantity}
+						id={"productPrice"}
+						placeholder={"Enter your product price"}
+						onChange={(e) => setProductPrice(parseInt(e.target.value))}
+						value={productPrice}
+					/>
+					<InputSelect
+						name={"Charge Type"}
+						id={"chargeType"}
+						onChange={(e) => setChargeType(e.target.value)}
+						value={chargeType}
+						options={["Price", "Quantity"]}
 					/>
 					<InputTextArea
 						name={"Product Description"}
@@ -89,27 +144,6 @@ const Product = () => {
 						value={productDescription}
 						fixedHeight
 						maxLength={250}
-					/>
-					<InputSelect
-						name={"Meal Type"}
-						id={"mealType"}
-						onChange={(e) => setMealType(e.target.value)}
-						value={mealType}
-						options={["Breakfast", "Lunch", "Dinner", "Snack", "Others"]}
-					/>{" "}
-					<InputFile
-						name={"Product Image"}
-						id={"productImage"}
-						onChange={handleImageUpload}
-						value={productImage}
-					/>
-					<InputText
-						name={"Price"}
-						type={"number"}
-						id={"productPrice"}
-						placeholder={"Enter your product price"}
-						onChange={(e) => setProductPrice(e.target.value)}
-						value={productPrice}
 					/>
 				</div>
 				{accompaniments.length > 0 && (
@@ -122,7 +156,7 @@ const Product = () => {
 								>
 									<PropValue property="Name" value={accompaniment.name} />
 									<PropValue property="Price" value={accompaniment.price} />
-									<PropValue property="Is Free" value={accompaniment.isFree} />
+									<PropValue property="Is Free" value={accompaniment.free} />
 									<MdDelete
 										className="text-red-500 cursor-pointer mt-1"
 										size={20}
@@ -168,15 +202,15 @@ const Product = () => {
 						/>
 						<InputSelect
 							name={"Is Free"}
-							id={"isFree"}
+							id={"free"}
 							options={["Yes", "No"]}
 							onChange={(e) =>
 								setAccompanimentData({
 									...accompanimentData,
-									isFree: e.target.value,
+									free: e.target.value,
 								})
 							}
-							value={accompanimentData.isFree}
+							value={accompanimentData.free}
 						/>
 					</div>
 					<button
@@ -188,7 +222,7 @@ const Product = () => {
 				</div>
 				<button
 					className="mt-4 bg-cyan-500 hover:bg-cyan-400 text-white font-bold py-2 px-4 rounded"
-					onClick={handleAddProduct}
+					onClick={submitProduct}
 				>
 					Add Product
 				</button>
@@ -203,16 +237,16 @@ const Product = () => {
 				<div className="flex flex-col">
 					<div className="flex flex-col w-full h-52 border justify-center items-center">
 						{productImage && (
-							<img className="w-full h-full" src={productImage} alt="Product" />
+							<img
+								className="w-full h-full"
+								src={URL.createObjectURL(productImage)}
+								alt="Product"
+							/>
 						)}
 					</div>
 					<div>
 						<PropValue property={"Product Name"} value={productName} />
-						<PropValue
-							property={"Product Description"}
-							value={productDescription}
-						/>
-						<PropValue property={"Quantity"} value={productQuantity} />
+						<PropValue property={"Description"} value={productDescription} />
 						<PropValue property={"Meal Type"} value={mealType} />
 						<PropValue property={"Price"} value={productPrice} />
 					</div>
@@ -227,19 +261,7 @@ const Product = () => {
 									>
 										<PropValue property="Name" value={accompaniment.name} />
 										<PropValue property="Price" value={accompaniment.price} />
-										<PropValue
-											property="Is Free"
-											value={accompaniment.isFree}
-										/>
-										<MdDelete
-											className="text-red-500 cursor-pointer mt-1"
-											size={20}
-											onClick={() =>
-												setAccompaniments(
-													accompaniments.filter((_, i) => i !== index)
-												)
-											}
-										/>
+										<PropValue property="Is Free" value={accompaniment.free} />
 									</div>
 								);
 							})}
@@ -254,7 +276,7 @@ const Product = () => {
 					<span className="ml-2 font-bold">Product Listing</span>
 				</div>
 				<div className="flex flex-row">
-					{products.map((product, index) => (
+					{meals.map((product, index) => (
 						<div
 							key={index}
 							className="product-card w-80 mr-5 shadow-md cursor-pointer hover:shadow-2xl"
@@ -263,7 +285,7 @@ const Product = () => {
 								{product.image && (
 									<img
 										className="w-full h-full"
-										src={product.image}
+										src={`${process.env.REACT_APP_SERVER_URL}/${product.image}`}
 										alt={product.name}
 									/>
 								)}
