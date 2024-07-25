@@ -10,8 +10,8 @@ export default function ClientMealCard({
 	price,
 	meal_type,
 	rating = 4.5,
+	onClick,
 }) {
-	// const navigate = useNavigate();
 	return (
 		<div className="flex flex-row border w-[450px] h-52 items-center mr-2 rounded-xl shadow-md hover:shadow-xl">
 			<div className="w-2/5 flex justify-center  items-center">
@@ -41,7 +41,10 @@ export default function ClientMealCard({
 						<FaStar className="text-yellow-500 mr-1 " />
 						<span>{rating}</span>
 					</div>
-					<div className="w-[40%] h-full border flex items-center justify-center  bg-slate-900 rounded-lg font-bold capitalize text-white cursor-pointer hover:shadow-xl">
+					<div
+						className="w-[40%] h-full border flex items-center justify-center  bg-slate-900 rounded-lg font-bold capitalize text-white cursor-pointer hover:shadow-xl"
+						onClick={onClick}
+					>
 						<FaCartShopping className="mr-1" />
 						<span>Order</span>
 					</div>
