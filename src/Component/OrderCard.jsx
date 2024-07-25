@@ -1,35 +1,35 @@
 import React from "react";
-import CatNumber from "./CatNumber";
 import PropValue from "./PropValue";
-import { FaHeart, FaStar } from "react-icons/fa6";
+import { MdCancel, MdOutlineDone } from "react-icons/md";
 
-export default function OrderCard() {
+export default function OrderCard({ order }) {
 	return (
-		<div className="flex flex-col h-96 w-[400px] border p-2 mr-2">
+		<div className="flex flex-col h-fit w-[400px] border p-2 mr-2 mb-5 shadow-md hover:shadow-xl">
 			<div className="flex flex-row items-center">
 				<div className="text-lg font-bold ml-2">Order Information</div>
 			</div>
 			<div className="flex flex-col items-center">
-				<PropValue property="Business Name:" value="Vendor Name" />
-				<PropValue property="Business Email:" value="a@a.com" />
-				<PropValue property="Phone:" value="123-456-7890" />
-				<PropValue property="Makes Deliveries:" value="Yes" />
+				<PropValue property="Meal Name:" value={order.meal_name} />
+				<PropValue
+					property="Price:"
+					value={"GHC " + (order.meal?.price || "")}
+				/>
+				<PropValue property="Quantity:" value={order.meal?.quantity} />
+				<PropValue property="Type" value="Pickup" />
+				<PropValue property="Delivery Fee:" value="GHC 0.00" />
+				<PropValue property="Status:" value={order.status} />
 			</div>
+			<div className="flex flex-row mt-2">
+				{/* cancel order button */}
+				<div className="flex flex-row items-center border px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-red-200">
+					<MdCancel className={`text-red-500 mr-2`} size={22} />
+					<span>Cancel Order</span>
+				</div>
 
-			<div className="h-full mt-2 ">
-				<div className="text-sm font-semibold text-gray-500">Description: </div>
-				<div className="text-sm mt-1">
-					We have the best food at the best price. Make your order now!
-				</div>
-			</div>
-			<div className="flex flex-row justify-between justify-self-end">
-				<div className="flex flex-row items-center border px-3 py-3 cursor-pointer">
-					<FaHeart className={`text-red-500 mr-2`} size={22} />
-					<span>21 Favorites</span>
-				</div>
-				<div className="flex flex-row items-center border px-3 py-3">
-					<FaStar className="text-yellow-500 mr-2 " size={22} />
-					<span>4.5 Ratings</span>
+				{/* Completed Order */}
+				<div className="flex flex-row items-center border px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-green-200">
+					<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
+					<span>Mark as Completed</span>
 				</div>
 			</div>
 		</div>
