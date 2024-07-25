@@ -1,7 +1,7 @@
 import "./App.css";
-import Login from "./login/Login";
+// import Login from "./login/Login";
 import QuestionPage from "./Questionnaires/QuestionPage";
-import Signup from "./signup/Signup";
+// import Signup from "./signup/Signup";
 import VendorForm from "./Vendorform/VendorForm";
 import ClientPage from "./ClientPage";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -18,16 +18,18 @@ import { VendorProvider } from "./ClientPage/VendorContext";
 import Vendor from "./ClientPage/Vendor";
 import OrderForm from "./ClientPage/Order";
 import { PaymentProvider } from "./ClientPage/PaymentContext";
+import AuthPage from "./AuthPage";
+
 
 function App() {
   const route = createBrowserRouter([
     {
       path: "/",
-      element: <Signup />,
+      element: <AuthPage />,
     },
     {
       path: "/login",
-      element: <Login />,
+      element: <AuthPage />,
     },
     {
       path: "/questions",
