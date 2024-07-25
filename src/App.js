@@ -94,7 +94,7 @@ function App() {
   ]);
 
   return (
-    <div className="App h-full overflow-hidden">
+    <div className="App h-full">
      <PaymentProvider>
       <VendorProvider>
         <ProductProvider>

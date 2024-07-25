@@ -15,9 +15,10 @@ const Orders = () => {
 	}, []);
 
 	return (
-		<div className="flex flex-col pt-3 px-3 ">
+		<div className="flex flex-col pt-3 px-3 overflow-y-auto ">
 			<SearchBar />
 			<div className="mt-5 flex flex-row flex-wrap">
+				{orders.length === 0 && <div>No orders available</div>}
 				{orders?.map((order) => (
 					<OrderCard key={order._id} order={order} />
 				))}

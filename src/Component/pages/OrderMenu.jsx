@@ -1,74 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import "../styles/order.css";
+import VendorOrderCard from "../VendorOrderCard";
+import { useSelector, useDispatch } from "react-redux";
+import { getOrders } from "../../thunk_action_creators/order";
 
 const OrderMenu = () => {
-  const [orders, setOrders] = useState([
-    {
-      id:1,
-      customerName: 'Albert Guggisberg',
-      status: 'Pending',
-      location: 'Ayeduase,Frontline Court',
-      meals:[{name:'Bread and Egg',quantity: 2,price: 16}]
-    },
-    {
-      id:2,
-      customerName: 'Angela Pierra',
-      status: 'Approved',
-      location: 'Gaza, Georgia Hostel',
-      meals:[{name:'Indomie',quantity: 2,price: 50}]
-    },
-    {
-      id:3,
-      customerName: 'Obed Essel',
-      status: 'Pending',
-      location: 'Ayeduase, Victory Towers',
-      meals:[{name:'Beans And Plantain',quantity: 4,price: 65}]
-    },
-    {
-      id:4,
-      customerName: 'Fred Arhin',
-      status: 'Pending',
-      location: 'Queens Hall Campus',
-      meals:[{name:'Fried  Rice And Chicken',quantity: 1,price: 30}]
-    },
-  ]);
-  const handleStatusChange = (orderId, newStatus) => {
-    setOrders((prevOrders) =>
-      prevOrders.map((order) =>
-        order.id === orderId ? { ...order, status: newStatus } : order
-      )
-    );
-  };
-  return (
-    <div className='orders-page'>
-      <h2>Orders</h2>
-      <div className='orders-list'>
-        {orders.map((order)=>(
-          <div key={order.id} className='order-card'>
-            <h4>Customer: {order.customerName}</h4>
-            <p>Location: {order.location}</p>
-            <div>
-              {order.meals.map((meal,index)=>(
-                <div key={index} className='meal-info'>
-                  <p>Meal: {meal.name}</p> 
-                  <p>Quantity: {meal.quantity}</p>
-                  <p>Price: Ghc{meal.price}</p>
+	const orders = useSelector((state) => state.orders.data);
+	const loading = useSelector((state) => state.orders.isLoading);
+	const error = useSelector((state) => state.orders.error);
+	const dispatch = useDispatch();
 
-                </div>
-              ))}
-            </div>
-            <p>Status: {order.status}</p>
-            {order.status === 'Pending' && (
-              <button onClick={()=>handleStatusChange(order.id,'Approved')}>
-                Approve Order
-              </button>
-            )}
+	useEffect(() => {
+		if (!loading) dispatch(getOrders());
+	}, []);
 
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className="orders-page">
+			<h2>Orders</h2>
+
+			<div className="flex flex-row flex-wrap">
+				{orders?.length === 0 && <div>No orders available</div>}
+				{orders?.map((order) => (
+					<VendorOrderCard key={order._id} order={order} />
+				))}
+				{/* <VendorOrderCard order={orders} />
+				<VendorOrderCard /> */}
+			</div>
+		</div>
+	);
 };
 
 export default OrderMenu;

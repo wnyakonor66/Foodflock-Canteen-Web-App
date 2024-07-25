@@ -45,3 +45,25 @@ export const getOrders = () => {
 		}
 	};
 };
+
+export const acceptOrder = (order_id) => {
+	return async (dispatch) => {
+		dispatch(start());
+		try {
+			const response = await fetch(`${server_url}/order/accept/${order_id}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
+			const data = await response.json();
+			dispatch(getOrders());
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};

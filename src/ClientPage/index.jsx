@@ -1,21 +1,22 @@
-import React from 'react';
-import { GiMeal } from 'react-icons/gi';
-import { FaShop } from 'react-icons/fa6';
-import { PiForkKnifeFill } from 'react-icons/pi';
-import { BiSolidCategory } from 'react-icons/bi';
-import { FaTruck } from 'react-icons/fa';
-import { Outlet, useNavigate } from 'react-router-dom';
-import {Navbar} from '../Component/Navbar';
+import React, { useState } from "react";
+import { GiMeal } from "react-icons/gi";
+import { FaShop } from "react-icons/fa6";
+import { PiForkKnifeFill } from "react-icons/pi";
+import { BiSolidCategory } from "react-icons/bi";
+import { FaTruck } from "react-icons/fa";
+import { Outlet, useNavigate } from "react-router-dom";
 import "../ClientPage/clientPage.css";
 import "./Vendor";
+import { Navbar } from "../Component/Navbar";
 
 const ClientPage = () => {
 	const navigate = useNavigate();
+	const [active, setActive] = useState("meals");
 
 	return (
 		<>
 			<Navbar />
-			<div className="flex flex-row h-[94vh] overflow-hidden">
+			<div className="flex flex-row">
 				<nav className="w-1/6 border-solid border-r border-gray-400 px-2 pt-2 bg-[#2f4f4f] text-white">
 					<div className="flex flex-row text-base font-semibold font-roboto">
 						<PiForkKnifeFill size={20} />
@@ -23,22 +24,37 @@ const ClientPage = () => {
 					</div>
 					<div className="flex flex-col pl-4">
 						<div
-							className="h-10 mt-1 border-b border-gray-400 flex items-center border-l-4 pl-2 cursor-pointer"
-							onClick={() => navigate("/client")}
+							className={`h-10 mt-1 border-b border-gray-400 flex items-center ${
+								active === "meals" ? "border-l-4" : ""
+							} pl-2 cursor-pointer`}
+							onClick={() => {
+								setActive("meals");
+								navigate("/client");
+							}}
 						>
 							<GiMeal size={20} />
 							<span className="ml-2">Meals</span>
 						</div>
 						<div
-							className="h-10 mt-1 border-b border-gray-400 flex items-center cursor-pointer hover:border-l-4 hover:pl-2"
-							onClick={() => navigate("/client/vendors")}
+							className={`h-10 mt-1 border-b border-gray-400 flex items-center ${
+								active === "vendors" ? "border-l-4" : ""
+							} pl-2 cursor-pointer`}
+							onClick={() => {
+								setActive("vendors");
+								navigate("/client/vendors");
+							}}
 						>
 							<FaShop size={20} />
 							<span className="ml-2">Vendors</span>
 						</div>
 						<div
-							className="h-10 mt-1 border-b border-gray-400 flex items-center cursor-pointer hover:border-l-4 hover:pl-2"
-							onClick={() => navigate("/client/orders")}
+							className={`h-10 mt-1 border-b border-gray-400 flex items-center ${
+								active === "orders" ? "border-l-4" : ""
+							} pl-2 cursor-pointer`}
+							onClick={() => {
+								setActive("orders");
+								navigate("/client/orders");
+							}}
 						>
 							<FaTruck size={20} />
 							<span className="ml-2">Orders</span>
@@ -107,7 +123,7 @@ const ClientPage = () => {
 						</div>
 					</div>
 				</nav>
-				<div className="content-container flex-1">
+				<div className="content-container flex-1 h-[94vh] overflow-auto">
 					<Outlet />
 				</div>
 			</div>

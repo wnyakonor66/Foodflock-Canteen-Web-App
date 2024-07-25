@@ -22,7 +22,6 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 				return;
 			}
 			setQuantity(num);
-			setPrice(meal?.price * num);
 		}
 	};
 
