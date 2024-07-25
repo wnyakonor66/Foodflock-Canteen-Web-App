@@ -6,8 +6,8 @@ import { BiSolidCategory } from 'react-icons/bi';
 import { FaTruck } from 'react-icons/fa';
 import { Outlet, useNavigate } from 'react-router-dom';
 import {Navbar} from '../Component/Navbar';
-import Vendor from './vendor';
 import './clientPage.css';
+import Vendor from './Vendor';
 
 const ClientPage = () => {
 	const navigate = useNavigate();

@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { VendorContext } from '../../ClientPage/VendorContext';
 
+
 const Profile = () => {
     const { vendor, setVendor } = useContext(VendorContext);
     const [formData, setFormData] = useState(vendor);
