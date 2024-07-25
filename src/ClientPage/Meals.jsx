@@ -3,6 +3,7 @@ import SearchBar from "../Component/SearchBar";
 import ClientMealCard from "../Component/ClientMealCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getMeals } from "../thunk_action_creators/meal";
+import { OrderModal } from "../Component/OrderModal";
 
 export default function Meals() {
 	const meals = useSelector((state) => state.meals.data);
@@ -16,6 +17,7 @@ export default function Meals() {
 
 	return (
 		<div className="flex flex-col pt-3 px-3">
+			<OrderModal />
 			<SearchBar />
 
 			<div className="flex flex-row flex-wrap mt-5">
@@ -25,9 +27,9 @@ export default function Meals() {
 							key={meal._id}
 							image={meal.image}
 							name={meal.name}
-                            price={meal.price}
-                            meal_type={meal.meal_type}
-                            description={meal.description}
+							price={meal.price}
+							meal_type={meal.meal_type}
+							description={meal.description}
 						/>
 					))}
 			</div>
