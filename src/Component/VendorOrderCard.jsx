@@ -2,7 +2,7 @@ import React from "react";
 import PropValue from "./PropValue";
 import { MdCancel, MdOutlineDone } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { acceptOrder } from "../thunk_action_creators/order";
+import { acceptOrder, cancelOrder } from "../thunk_action_creators/order";
 
 export default function VendorOrderCard({ order }) {
 	const dispatch = useDispatch();
@@ -23,33 +23,47 @@ export default function VendorOrderCard({ order }) {
 				<PropValue property="Delivery Fee:" value="GHC 0.00" />
 				<PropValue property="Status:" value={order?.status} />
 			</div>
-			<div className="flex flex-row mt-2">
-				{order.acceptedByVendor ? (
+			{order?.status !== "cancelled" && (
+				<div className="flex flex-row mt-2">
+					{order?.acceptedByVendor ? (
+						<div
+							className="flex flex-row mr-3 items-center border px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-green-200"
+							onClick={() => {}}
+						>
+							<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
+							<span>Mark as Completed</span>
+						</div>
+					) : (
+						<div
+							className="flex flex-row mr-3 items-center border px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-green-200"
+							onClick={() => {
+								dispatch(acceptOrder(order?._id));
+							}}
+						>
+							<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
+							<span>Approve Order</span>
+						</div>
+					)}
+
+					{/* cancel order button */}
 					<div
-						className="flex flex-row mr-3 items-center border px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-green-200"
-						onClick={() => {}}
-					>
-						<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
-						<span>Mark as Completed</span>
-					</div>
-				) : (
-					<div
-						className="flex flex-row mr-3 items-center border px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-green-200"
+						className="flex flex-row items-center border px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-red-200"
 						onClick={() => {
-							dispatch(acceptOrder(order._id));
+							dispatch(cancelOrder(order?._id));
 						}}
 					>
-						<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
-						<span>Approve Order</span>
+						<MdCancel className={`text-red-500 mr-2`} size={22} />
+						<span>Cancel Order</span>
 					</div>
-				)}
-
-				{/* cancel order button */}
-				<div className="flex flex-row items-center border px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-red-200">
-					<MdCancel className={`text-red-500 mr-2`} size={22} />
-					<span>Cancel Order</span>
 				</div>
-			</div>
+			)}
+
+			{order.status === "cancelled" && (
+				<div className="flex flex-row items-center border px-3 py-3 hover:bg-red-200">
+					<MdCancel className={`text-red-500 mr-2`} size={22} />
+					<span>This order has been cancelled</span>
+				</div>
+			)}
 		</div>
 	);
 }
