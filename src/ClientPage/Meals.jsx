@@ -11,6 +11,7 @@ export default function Meals() {
 	const meals = useSelector((state) => state.meals.data);
 	const loading = useSelector((state) => state.meals.loading);
 	const error = useSelector((state) => state.meals.error);
+	const [searchTerm, setSearchTerm] = useState("");
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -24,24 +25,31 @@ export default function Meals() {
 				setShowModal={() => setShowModal(false)}
 				meal={selectedMeal}
 			/>
-			<SearchBar />
+			<SearchBar
+				onSearch={(e) => setSearchTerm(e.target.value)}
+				value={searchTerm}
+			/>
 
 			<div className="flex flex-row flex-wrap mt-5">
 				{meals &&
-					meals?.map((meal, index) => (
-						<ClientMealCard
-							key={meal._id}
-							image={meal.image}
-							name={meal.name}
-							price={meal.price}
-							meal_type={meal.meal_type}
-							description={meal.description}
-							onClick={() => {
-								selectMeal(meal);
-								setShowModal(true);
-							}}
-						/>
-					))}
+					meals?.map((meal, index) => {
+						if (meal.name.toLowerCase().includes(searchTerm.toLowerCase()))
+							return (
+								<ClientMealCard
+									key={meal._id}
+									image={meal.image}
+									name={meal.name}
+									price={meal.price}
+									meal_type={meal.meal_type}
+									description={meal.description}
+									onClick={() => {
+										selectMeal(meal);
+										setShowModal(true);
+									}}
+								/>
+							);
+                        return null;
+					})}
 			</div>
 		</div>
 	);

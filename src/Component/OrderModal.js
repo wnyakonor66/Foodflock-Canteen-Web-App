@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { placeOrder } from "../thunk_action_creators/order";
+import InputSelect from "./InputSelect";
 
 export const OrderModal = ({ showModal, setShowModal, meal }) => {
 	const [quantity, setQuantity] = useState(1);
 	const [price, setPrice] = useState(parseInt(meal?.price) || 0);
 	const [accompaniments, setAccompanients] = useState([]);
+	const [deliveryOption, setDeliveryOption] = useState("pickup");
 
 	const calculatePrice = (num) => {
 		if (meal?.charge_type === "price") {
@@ -33,6 +35,7 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 			quantity,
 			amount: price,
 			charge_type: meal?.charge_type,
+            delivery_option: deliveryOption,
 			accompaniments,
 		};
 
@@ -54,7 +57,7 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 			onClick={() => setShowModal(false)}
 		>
 			<div
-				className="bg-white w-1/5 h-fit"
+				className="bg-white w-fit h-fit"
 				onClick={(e) => e.stopPropagation()}
 			>
 				<div className="flex w-full justify-center items-center mb-2">
@@ -83,15 +86,6 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 						<span className="text-lg font-roboto font-bold">{meal?.name}</span>
 
 						<div className="flex flex-row border items-center">
-							{/* <FaMinus
-								className="w-5 h-5 bg-red-400 p-1 cursor-pointer"
-								size={25}
-								color="white"
-								onClick={() => {
-									if (quantity > 1) setQuantity(quantity - 1);
-									if (price > meal?.price) setPrice(price - 1);
-								}}
-							/> */}
 							{meal?.charge_type === "price" ? (
 								<input
 									type="number"
@@ -107,15 +101,6 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 									onChange={(e) => calculatePrice(e.target.value)}
 								/>
 							)}
-							{/* <FaPlus
-								className="w-5 h-5 bg-red-400 p-1 cursor-pointer"
-								size={25}
-								color="white"
-								onClick={() => {
-									setQuantity(quantity + 1);
-									setPrice(price + 1);
-								}}
-							/> */}
 						</div>
 					</div>
 
@@ -152,6 +137,19 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 						))}
 					</div>
 
+					{meal?.makes_delivery && (
+						<div className="w-full mt-2">
+							<InputSelect
+								name="Delivery"
+								options={["pickup", "delivery"]}
+								onChange={(e) => {
+									if (e.target.value === "") return setDeliveryOption("pickup");
+									setDeliveryOption(e.target.value);
+								}}
+								value={deliveryOption}
+							/>
+						</div>
+					)}
 					<div className="w-full flex flex-row justify-between items-center mb-3">
 						<div>
 							<span className="text-sm font-bold mr-2">Total: </span>

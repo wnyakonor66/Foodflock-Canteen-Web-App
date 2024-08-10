@@ -13,7 +13,7 @@ export default function VendorCard({
 	favorites = 21,
 }) {
 	return (
-		<div className="flex flex-col h-96 w-[400px] border p-2 mr-2 shadow-md hover:shadow-xl">
+		<div className="flex flex-col h-96 w-[400px] border p-2 mr-2 shadow-md hover:shadow-xl mt-4">
 			<div className="flex flex-row items-center">
 				<div className="text-lg font-bold ml-2">Vendor Information</div>
 			</div>

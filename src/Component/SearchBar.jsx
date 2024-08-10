@@ -3,13 +3,17 @@ import "./styles/searchbar.css";
 import { FaSearch } from "react-icons/fa";
 import { BiSearch } from "react-icons/bi";
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch = () => {}, value = "" }) => {
 	return (
 		<div className="search flex flex-row bg-white w-96 items-center h-10 shadow-md rounded-full hover:shadow-xl border">
 			<BiSearch className="ml-2" size={22} />
-			<input 
-            className="outline-none ml-2 w-full"
-            type="text" placeholder="Search..." />
+			<input
+				className="outline-none ml-2 w-full"
+				type="text"
+				placeholder="Search..."
+				value={value}
+				onChange={onSearch}
+			/>
 		</div>
 	);
 };
