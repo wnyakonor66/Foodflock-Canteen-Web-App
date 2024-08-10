@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import PropValue from "./PropValue";
 import { MdCancel, MdOutlineDone, MdPendingActions } from "react-icons/md";
-import { cancelOrder, completeOrder } from "../thunk_action_creators/order";
+import {
+	cancelOrder,
+	completeOrder,
+	updateRating,
+} from "../thunk_action_creators/order";
 import { useDispatch } from "react-redux";
+import { IoStarSharp } from "react-icons/io5";
 
 export default function OrderCard({ order }) {
+	const [rating, setRating] = useState(order?.rating || 0);
+	const [editedRating, setEditedRating] = useState(false);
 	const dispatch = useDispatch();
 
 	return (
@@ -70,15 +77,88 @@ export default function OrderCard({ order }) {
 					}}
 				>
 					<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
-					<span>Order Received</span>
+					<span>Mark As Order Received</span>
 				</div>
 			)}
 
-			{order.markedAsCompleted && order.status === "completed" && (
+			{order.status === "completed" && (
 				<div className="flex flex-row items-center border mt-2 px-3 py-3 hover:bg-green-200">
 					<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
 					<span>This order has been completed</span>
 				</div>
+			)}
+
+			{order.status === "completed" && (
+				<>
+					<div className="flex flex-row items-center border mt-2 px-3 py-3">
+						<div className="text-sm font-semibold text-gray-500 mr-4">
+							Rating:
+						</div>
+						<IoStarSharp
+							className={`mr-2 ${
+								rating >= 1 ? "text-yellow-400" : "text-gray-300"
+							}`}
+							size={22}
+							onClick={() => {
+								setRating(1);
+								setEditedRating(true);
+							}}
+						/>
+						<IoStarSharp
+							className={`mr-2 ${
+								rating >= 2 ? "text-yellow-400" : "text-gray-300"
+							}`}
+							size={22}
+							onClick={() => {
+								setRating(2);
+								setEditedRating(true);
+							}}
+						/>
+						<IoStarSharp
+							className={`mr-2 ${
+								rating >= 3 ? "text-yellow-400" : "text-gray-300"
+							}`}
+							size={22}
+							onClick={() => {
+								setRating(3);
+								setEditedRating(true);
+							}}
+						/>
+						<IoStarSharp
+							className={`mr-2 ${
+								rating >= 4 ? "text-yellow-400" : "text-gray-300"
+							}`}
+							size={22}
+							onClick={() => {
+								setRating(4);
+								setEditedRating(true);
+							}}
+						/>
+						<IoStarSharp
+							className={`mr-2 ${
+								rating >= 5 ? "text-yellow-400" : "text-gray-300"
+							}`}
+							size={22}
+							onClick={() => {
+								setRating(5);
+								setEditedRating(true);
+							}}
+						/>
+					</div>
+
+					{editedRating && (
+						<div
+							className="flex flex-row items-center border mt-2 px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-green-200"
+							onClick={() => {
+								dispatch(updateRating(order?._id, rating));
+								setEditedRating(false);
+							}}
+						>
+							<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
+							<span>Submit Rating</span>
+						</div>
+					)}
+				</>
 			)}
 		</div>
 	);

@@ -8,8 +8,10 @@ import {
 	completeOrder,
 } from "../thunk_action_creators/order";
 import InputText from "./InputText";
+import { IoStarSharp } from "react-icons/io5";
 
 export default function VendorOrderCard({ order }) {
+	const [rating, setRating] = useState(order?.rating || 0);
 	const [deliveryFee, setDeliveryFee] = useState(order?.deliveryCharge || 0);
 	const dispatch = useDispatch();
 
@@ -47,7 +49,7 @@ export default function VendorOrderCard({ order }) {
 					/>
 				</div>
 			)}
-			{(order?.status !== "cancelled" && !order?.markedAsCompleted) && (
+			{order?.status !== "cancelled" && !order?.markedAsCompleted && (
 				<div className="flex flex-row mt-2">
 					{order?.acceptedByVendor ? (
 						<div
@@ -91,12 +93,54 @@ export default function VendorOrderCard({ order }) {
 				</div>
 			)}
 
-            {order.markedAsCompleted && (
-                <div className="flex flex-row items-center border px-3 py-3 mt-2 hover:bg-green-200">
-                    <MdOutlineDone className={`text-green-500 mr-2`} size={22} />
-                    <span>This order has been marked as completed</span>
-                </div>
-            )}
+			{order.markedAsCompleted && (
+				<div className="flex flex-row items-center border px-3 py-3 mt-2 hover:bg-green-200">
+					<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
+					{order.status === "completed" ? (
+						<span>This order has been received</span>
+					) : (
+						<span>This order has been marked as completed</span>
+					)}
+				</div>
+			)}
+
+			{order.status === "completed" && (
+				<div className="flex flex-row items-center border mt-2 px-3 py-3">
+					<div className="text-sm font-semibold text-gray-500 mr-4">
+						Rating:
+					</div>
+					<IoStarSharp
+						className={`mr-2 ${
+							rating >= 1 ? "text-yellow-400" : "text-gray-300"
+						}`}
+						size={22}
+					/>
+					<IoStarSharp
+						className={`mr-2 ${
+							rating >= 2 ? "text-yellow-400" : "text-gray-300"
+						}`}
+						size={22}
+					/>
+					<IoStarSharp
+						className={`mr-2 ${
+							rating >= 3 ? "text-yellow-400" : "text-gray-300"
+						}`}
+						size={22}
+					/>
+					<IoStarSharp
+						className={`mr-2 ${
+							rating >= 4 ? "text-yellow-400" : "text-gray-300"
+						}`}
+						size={22}
+					/>
+					<IoStarSharp
+						className={`mr-2 ${
+							rating >= 5 ? "text-yellow-400" : "text-gray-300"
+						}`}
+						size={22}
+					/>
+				</div>
+			)}
 		</div>
 	);
 }

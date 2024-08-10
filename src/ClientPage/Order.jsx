@@ -26,7 +26,7 @@ const Orders = () => {
 				{orders?.map(
 					(order) =>
 						order?.meal_name
-							.toLowerCase()
+							?.toLowerCase()
 							.includes(searchTerm.toLowerCase()) && (
 							<OrderCard key={order._id} order={order} />
 						)

@@ -47,7 +47,7 @@ export const getOrders = () => {
 };
 
 export const acceptOrder = (order_id, delivery_fee) => {
-    console.log(order_id, delivery_fee);
+	console.log(order_id, delivery_fee);
 	return async (dispatch) => {
 		dispatch(start());
 		try {
@@ -93,23 +93,46 @@ export const cancelOrder = (order_id) => {
 };
 
 export const completeOrder = (order_id) => {
-    return async (dispatch) => {
-        dispatch(start());
-        try {
-            const response = await fetch(`${server_url}/order/complete/${order_id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            });
-            if (!response.ok) {
-                throw new Error(response.statusText);
-            }
-            const data = await response.json();
-            dispatch(getOrders());
-        } catch (error) {
-            dispatch(failed(error.message));
-        }
-    };
+	return async (dispatch) => {
+		dispatch(start());
+		try {
+			const response = await fetch(`${server_url}/order/complete/${order_id}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
+			const data = await response.json();
+			dispatch(getOrders());
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};
+
+export const updateRating = (order_id, rating) => {
+	return async (dispatch) => {
+		dispatch(start());
+		try {
+			const response = await fetch(`${server_url}/order/rate/${order_id}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ rating: rating }),
+				credentials: "include",
+			});
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
+			const data = await response.json();
+			dispatch(getOrders());
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
 };
