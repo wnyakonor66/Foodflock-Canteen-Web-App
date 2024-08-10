@@ -39,7 +39,7 @@ export default function ClientMealCard({
 					</div>
 					<div className="w-[30%] h-full border flex items-center justify-center bg-slate-900 rounded-lg font-bold capitalize text-white">
 						<FaStar className="text-yellow-500 mr-1 " />
-						<span>{rating}</span>
+						<span>{rating || "N/A"}</span>
 					</div>
 					<div
 						className="w-[40%] h-full border flex items-center justify-center  bg-slate-900 rounded-lg font-bold capitalize text-white cursor-pointer hover:shadow-xl"

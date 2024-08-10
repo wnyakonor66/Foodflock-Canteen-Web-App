@@ -16,8 +16,9 @@ export const addBusiness = (form_data) => {
 			if (!response.ok) {
 				throw new Error(response.statusText);
 			}
-			const data = await response.json();
-			dispatch(add(data.business));
+			// const data = await response.json();
+			// dispatch(add(data.business));
+            dispatch(getBusiness());
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
@@ -63,8 +64,9 @@ export const updateBusiness = (form_data) => {
 			if (!response.ok) {
 				throw new Error(response.statusText);
 			}
-			const data = await response.json();
-			dispatch(get(data.business));
+			// const data = await response.json();
+			// dispatch(get(data.business));
+            dispatch(getBusiness());
 		} catch (error) {
 			dispatch(failed(error.message));
 		}

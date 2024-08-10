@@ -31,6 +31,7 @@ const Vendor = () => {
 								delivery={business.makes_delivery ? "Yes" : "No"}
 								description={business.description}
 								email={business.email}
+                                stars={business.rating}
 								phone={business.phone}
 							/>
 						)

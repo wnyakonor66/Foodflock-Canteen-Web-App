@@ -42,6 +42,7 @@ export default function Meals() {
 									price={meal.price}
 									meal_type={meal.meal_type}
 									description={meal.description}
+                                    rating={meal.rating}
 									onClick={() => {
 										selectMeal(meal);
 										setShowModal(true);

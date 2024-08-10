@@ -37,8 +37,9 @@ export const addMeal = (form_data) => {
 			if (!response.ok) {
 				throw new Error(response.statusText);
 			}
-			const data = await response.json();
-			dispatch(add(data.meals));
+			// const data = await response.json();
+			// dispatch(add(data.meals));
+            dispatch(getMeals());
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
@@ -58,8 +59,9 @@ export const updateMeal = (updates, meal_id) => {
 			if (!response.ok) {
 				throw new Error(response.statusText);
 			}
-			const data = await response.json();
-			dispatch(update(data.meals));
+			// const data = await response.json();
+			// dispatch(update(data.meals));
+            dispatch(getMeals());
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
@@ -79,7 +81,7 @@ export const deleteMeal = (meal_id) => {
 			});
 
 			const data = await response.json();
-			dispatch(get(data.meals));
+			dispatch(getMeals());
 		} catch (error) {
 			dispatch(failed(error.message));
 		}

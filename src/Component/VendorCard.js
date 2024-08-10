@@ -9,7 +9,7 @@ export default function VendorCard({
 	phone,
 	delivery,
 	description,
-	stars = 4.5,
+	stars = 0,
 	favorites = 21,
 }) {
 	return (
