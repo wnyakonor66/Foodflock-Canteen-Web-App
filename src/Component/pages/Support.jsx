@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/support.css';
+import ChatBot from '../../ChatBot';
 
 const Support = () => {
   return (
@@ -42,6 +43,7 @@ const Support = () => {
             <a href="/status">View Status</a>
         </div>
   </div>
+  <ChatBot/>
 </div>
 
   );
