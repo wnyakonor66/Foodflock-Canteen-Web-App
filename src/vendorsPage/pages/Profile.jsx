@@ -152,15 +152,33 @@ export default function Profile() {
 				</div>
 
 				<div className="mt-4 flex flex-col">
-					<PropValue property={"Processed Orders"} value={"0"} />
-					<PropValue property={"Pending Orders"} value={"0"} />
-					<PropValue property={"Cancelled Orders"} value={"0"} />
+					<PropValue
+						property={"Processed Orders"}
+						value={business?.analytics?.completed_orders}
+					/>
+					<PropValue
+						property={"Pending Orders"}
+						value={business?.analytics?.pending_orders}
+					/>
+					<PropValue
+						property={"Cancelled Orders"}
+						value={business?.analytics?.cancelled_orders}
+					/>
 
 					<hr className="mb-2 mt-3" />
 
-					<PropValue property={"Total Orders"} value={"0"} />
-					<PropValue property={"Total Earnings"} value={"0"} />
-					<PropValue property={"Potential Earnings"} value={"0"} />
+					<PropValue
+						property={"Total Orders"}
+						value={business?.analytics?.total_orders}
+					/>
+					<PropValue
+						property={"Total Earnings"}
+						value={business?.analytics?.total_revenue}
+					/>
+					<PropValue
+						property={"Potential Earnings"}
+						value={business?.analytics?.potential_revenue}
+					/>
 				</div>
 			</div>
 
@@ -187,13 +205,24 @@ export default function Profile() {
 				</div>
 
 				<div className="mt-4 flex flex-col">
-					<PropValue property={"Ratings 4-5"} value={"0"} />
-					<PropValue property={"Ratings 3"} value={"0"} />
-					<PropValue property={"Ratings 2"} value={"0"} />
-					<PropValue property={"Ratings 1"} value={"0"} />
+					<PropValue
+						property={"Ratings 4-5"}
+						value={business?.analytics?.stars['4_5']}
+					/>
+					<PropValue property={"Ratings 3"} value={
+                        business?.analytics?.stars['3']
+                    } />
+					<PropValue property={"Ratings 2"} value={
+                        business?.analytics?.stars['2']
+                    } />
+					<PropValue property={"Ratings 1"} value={
+                        business?.analytics?.stars['1']
+                    } />
 					<hr className="mb-2 mt-3" />
-					<PropValue property={"Average Ratings"} value={"0"} />
-					<PropValue property={"Total Reviews"} value={"0"} />
+					<PropValue property={"Average Ratings"} value={
+                        business?.analytics?.average_rating
+                    } />
+					{/* <PropValue property={"Total Reviews"} value={"0"} /> */}
 				</div>
 			</div>
 		</div>

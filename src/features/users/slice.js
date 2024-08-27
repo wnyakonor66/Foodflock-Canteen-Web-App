@@ -17,6 +17,7 @@ export const userSlice = createSlice({
 			state.isLoading = false;
 		},
 		loginFailed: (state, action) => {
+			state.data = null;
 			state.error = action.payload;
 			state.isLoading = false;
 		},
@@ -48,6 +49,6 @@ export const {
 	register,
 	registerFailed,
 	registerStart,
-    registerSuccess,
+	registerSuccess,
 } = userSlice.actions;
 export default userSlice.reducer;

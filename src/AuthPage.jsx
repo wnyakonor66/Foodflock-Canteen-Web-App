@@ -9,6 +9,7 @@ const AuthPage = () => {
 	const [isLogin, setIsLogin] = useState(true);
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.user.data);
+	const error = useSelector((state) => state.user.error);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -73,6 +74,8 @@ const AuthPage = () => {
 								{isLogin ? "Login" : "Sign Up"}
 							</button>
 						</div>
+
+						{error && <div className="text-sm my-2 text-red-500 ">{error}</div>}
 					</form>
 					<div className="toggle-auth">
 						<p>

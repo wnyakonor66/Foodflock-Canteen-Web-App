@@ -20,6 +20,9 @@ export const registerUser = (form_data) => {
 			});
 
 			const data = await response.json();
+			if (!response.ok) {
+				throw new Error(data.message);
+			}
 			dispatch(registerSuccess(data.user));
 		} catch (error) {
 			dispatch(registerFailed(error.message));
@@ -38,9 +41,12 @@ export const loginUser = (form_data) => {
 				credentials: "include",
 			});
 			const data = await response.json();
+			if (!response.ok) {
+				throw new Error(data.message);
+			}
 			dispatch(login(data.user));
 		} catch (error) {
-			dispatch(loginFailed(error.message));
+			dispatch(loginFailed(error?.message));
 		}
 	};
 };
