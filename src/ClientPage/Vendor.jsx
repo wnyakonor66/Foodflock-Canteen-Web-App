@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../Component/SearchBar";
 import VendorCard from "../Component/VendorCard";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllBusinesses } from "../thunk_action_creators/business";
+import {
+	getAllBusinesses,
+	setFavourite,
+} from "../thunk_action_creators/business";
 
 const Vendor = () => {
 	const businesses = useSelector((state) => state.business.data);
@@ -31,8 +34,13 @@ const Vendor = () => {
 								delivery={business.makes_delivery ? "Yes" : "No"}
 								description={business.description}
 								email={business.email}
-                                stars={business.rating}
+								stars={business.rating}
 								phone={business.phone}
+								favorites={business.favourites}
+								isFav={business.isFavourite}
+								onClick={() => {
+									dispatch(setFavourite(business._id));
+								}}
 							/>
 						)
 				)}

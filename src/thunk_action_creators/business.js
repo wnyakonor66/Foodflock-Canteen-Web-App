@@ -18,7 +18,7 @@ export const addBusiness = (form_data) => {
 			}
 			// const data = await response.json();
 			// dispatch(add(data.business));
-            dispatch(getBusiness());
+			dispatch(getBusiness());
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
@@ -55,7 +55,7 @@ export const updateBusiness = (form_data) => {
 		try {
 			const response = await fetch(`${server_url}/business`, {
 				method: "PUT",
-				body: JSON.stringify({updates: form_data}),
+				body: JSON.stringify({ updates: form_data }),
 				headers: {
 					"Content-Type": "application/json",
 				},
@@ -66,7 +66,7 @@ export const updateBusiness = (form_data) => {
 			}
 			// const data = await response.json();
 			// dispatch(get(data.business));
-            dispatch(getBusiness());
+			dispatch(getBusiness());
 		} catch (error) {
 			dispatch(failed(error.message));
 		}
@@ -91,6 +91,30 @@ export const getAllBusinesses = () => {
 			const data = await response.json();
 
 			dispatch(get(data.businesses));
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};
+
+export const setFavourite = (business) => {
+	return async (dispatch) => {
+		dispatch(start());
+
+		try {
+			const response = await fetch(`${server_url}/business/fav`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ business: business }),
+				credentials: "include",
+			});
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
+			const data = await response.json();
+            dispatch(getAllBusinesses());
 		} catch (error) {
 			dispatch(failed(error.message));
 		}

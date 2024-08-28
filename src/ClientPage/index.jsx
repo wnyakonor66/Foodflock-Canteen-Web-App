@@ -3,14 +3,17 @@ import { GiMeal } from "react-icons/gi";
 import { FaShop } from "react-icons/fa6";
 import { PiForkKnifeFill } from "react-icons/pi";
 import { BiSolidCategory } from "react-icons/bi";
-import { FaTruck } from "react-icons/fa";
+import { FaLock, FaTruck } from "react-icons/fa";
 import { Outlet, useNavigate } from "react-router-dom";
 import "../ClientPage/clientPage.css";
 import "./Vendor";
 import { Navbar } from "../Component/Navbar";
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../thunk_action_creators/users";
 
 const ClientPage = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const [active, setActive] = useState("meals");
 
 	return (
@@ -59,8 +62,22 @@ const ClientPage = () => {
 							<FaTruck size={20} />
 							<span className="ml-2">Orders</span>
 						</div>
+
+						<div
+							className={`h-10 mt-1 border-b border-gray-400 flex items-center ${
+								active === "orders" ? "border-l-4" : ""
+							} pl-2 cursor-pointer`}
+							onClick={() => {
+								setActive("orders");
+								dispatch((logoutUser()));
+								navigate("/login");
+							}}
+						>
+							<FaLock size={20} />
+							<span className="ml-2">Logout</span>
+						</div>
 					</div>
-					<div className="flex flex-row text-base font-semibold font-roboto mt-4">
+					{/* <div className="flex flex-row text-base font-semibold font-roboto mt-4">
 						<BiSolidCategory size={20} />
 						<span className="ml-2">CATEGORIES</span>
 					</div>
@@ -104,8 +121,8 @@ const ClientPage = () => {
 								Snacks
 							</label>
 						</div>
-					</div>
-					<div className="flex flex-row text-base font-semibold font-roboto mt-4">
+					</div> */}
+					{/* <div className="flex flex-row text-base font-semibold font-roboto mt-4">
 						<FaShop size={20} />
 						<span className="ml-2">Favorite VENDORS</span>
 					</div>
@@ -121,7 +138,7 @@ const ClientPage = () => {
 								Vendor 1
 							</label>
 						</div>
-					</div>
+					</div> */}
 				</nav>
 				<div className="content-container flex-1 h-[94vh] overflow-auto">
 					<Outlet />

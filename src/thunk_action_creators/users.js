@@ -5,6 +5,7 @@ import {
 	login,
 	loginFailed,
 	loginStart,
+	logout,
 } from "../features/users/slice";
 import { server_url } from "../static/variables";
 
@@ -45,6 +46,27 @@ export const loginUser = (form_data) => {
 				throw new Error(data.message);
 			}
 			dispatch(login(data.user));
+		} catch (error) {
+			dispatch(loginFailed(error?.message));
+		}
+	};
+};
+
+export const logoutUser = (form_data) => {
+	return async (dispatch) => {
+		dispatch(loginStart());
+		try {
+			// const response = await fetch(`${server_url}/auth/login`, {
+			// 	method: "POST",
+			// 	body: JSON.stringify(form_data),
+			// 	headers: { "Content-Type": "application/json" },
+			// 	credentials: "include",
+			// });
+			// const data = await response.json();
+			// if (!response.ok) {
+			// 	throw new Error(data.message);
+			// }
+			dispatch(logout());
 		} catch (error) {
 			dispatch(loginFailed(error?.message));
 		}

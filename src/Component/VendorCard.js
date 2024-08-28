@@ -11,6 +11,8 @@ export default function VendorCard({
 	description,
 	stars = 0,
 	favorites = 21,
+	isFav,
+	onClick = () => {},
 }) {
 	return (
 		<div className="flex flex-col h-96 w-[400px] border p-2 mr-2 shadow-md hover:shadow-xl mt-4">
@@ -29,8 +31,14 @@ export default function VendorCard({
 				<div className="text-sm mt-1">{description}</div>
 			</div>
 			<div className="flex flex-row justify-between justify-self-end">
-				<div className="flex flex-row items-center border px-3 py-3 cursor-pointer">
-					<FaHeart className={`text-red-500 mr-2`} size={22} />
+				<div
+					className="flex flex-row items-center border px-3 py-3 cursor-pointer"
+					onClick={onClick}
+				>
+					<FaHeart
+						className={`${isFav ? "text-red-500" : "text-gray-500"} mr-2`}
+						size={22}
+					/>
 					<span>{favorites} Favorites</span>
 				</div>
 				<div className="flex flex-row items-center border px-3 py-3">

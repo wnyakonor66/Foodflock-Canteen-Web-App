@@ -21,6 +21,26 @@ export const getMeals = () => {
 	};
 };
 
+export const getRecommendedMeals = () => {
+	return async (dispatch) => {
+		dispatch(start());
+		try {
+			const response = await fetch(`${server_url}/meals/recommended`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+
+			const data = await response.json();
+			dispatch(get(data.meals));
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};
+
 export const addMeal = (form_data) => {
 	console.log(form_data);
 	return async (dispatch) => {
