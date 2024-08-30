@@ -11,18 +11,28 @@ import {
 	updateBusiness,
 	addBusiness,
 } from "../../thunk_action_creators/business";
+import { PickMap } from "../../Component/PickMap";
 
 export default function Profile() {
 	const business = useSelector((state) => state.business.data);
 	const error = useSelector((state) => state.business.error);
 	const loading = useSelector((state) => state.business.isLoading);
+	const [location, setLocation] = useState("");
+	const [showMap, setShowMap] = useState(false);
+	const [coords, setCoords] = useState([-1.6221, 6.923]);
+
 	const [businessData, setBusinessData] = useState({
 		name: "",
 		phone: "",
 		email: "",
 		description: "",
 		makes_delivery: "",
+		location: null,
 	});
+
+	useEffect(() => {
+		setBusinessData({ ...businessData, location: coords });
+	}, [coords]);
 
 	const dispatch = useDispatch();
 
@@ -95,10 +105,17 @@ export default function Profile() {
 						}}
 					/>
 
-					<InputText
-						name={"Location"}
-						id={"location"}
-						placeholder={"Enter your Business Location"}
+					<div
+						className="my-3 border w-72 h-10 mr-10 py-2 rounded-md shadow-md hover:shadow-xl text-center cursor-pointer"
+						onClick={() => setShowMap(true)}
+					>
+						{!location ? "Pick location" : location}
+					</div>
+					<PickMap
+						showMap={showMap}
+						setShowMap={setShowMap}
+						setCoords={setCoords}
+						setLocationAddr={setLocation}
 					/>
 
 					<InputSelect
@@ -207,21 +224,25 @@ export default function Profile() {
 				<div className="mt-4 flex flex-col">
 					<PropValue
 						property={"Ratings 4-5"}
-						value={business?.analytics?.stars['4_5']}
+						value={business?.analytics?.stars["4_5"]}
 					/>
-					<PropValue property={"Ratings 3"} value={
-                        business?.analytics?.stars['3']
-                    } />
-					<PropValue property={"Ratings 2"} value={
-                        business?.analytics?.stars['2']
-                    } />
-					<PropValue property={"Ratings 1"} value={
-                        business?.analytics?.stars['1']
-                    } />
+					<PropValue
+						property={"Ratings 3"}
+						value={business?.analytics?.stars["3"]}
+					/>
+					<PropValue
+						property={"Ratings 2"}
+						value={business?.analytics?.stars["2"]}
+					/>
+					<PropValue
+						property={"Ratings 1"}
+						value={business?.analytics?.stars["1"]}
+					/>
 					<hr className="mb-2 mt-3" />
-					<PropValue property={"Average Ratings"} value={
-                        business?.analytics?.average_rating
-                    } />
+					<PropValue
+						property={"Average Ratings"}
+						value={business?.analytics?.average_rating}
+					/>
 					{/* <PropValue property={"Total Reviews"} value={"0"} /> */}
 				</div>
 			</div>

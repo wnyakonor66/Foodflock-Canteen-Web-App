@@ -20,7 +20,7 @@ export default function InputText({
 				onChange={onChange}
 				value={value}
 				placeholder={placeholder}
-				className="border border-gray-100 p-1 rounded-md outline-none w-72 mb-10"
+				className="border border-gray-100 p-1 rounded-md outline-none w-72"
 				type={type ?? "text"}
 				min={min}
 				max={max}

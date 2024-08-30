@@ -2,12 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { placeOrder } from "../thunk_action_creators/order";
 import InputSelect from "./InputSelect";
+import { PickMap } from "./PickMap";
+import InputText from "./InputText";
 
-export const OrderModal = ({ showModal, setShowModal, meal }) => {
+export const OrderModal = ({ showModal, setShowModal, meal, key }) => {
 	const [quantity, setQuantity] = useState(1);
 	const [price, setPrice] = useState(parseInt(meal?.price) || 0);
 	const [accompaniments, setAccompanients] = useState([]);
 	const [deliveryOption, setDeliveryOption] = useState("pickup");
+	const [showMap, setShowMap] = useState(false);
+	const [contact, setContact] = useState("");
+	const [coords, setCoords] = useState([-1.6221, 6.923]);
+	const [location, setLocation] = useState("");
 
 	const calculatePrice = (num) => {
 		if (meal?.charge_type === "price") {
@@ -35,8 +41,12 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 			quantity,
 			amount: price,
 			charge_type: meal?.charge_type,
-            delivery_option: deliveryOption,
+			delivery_option: deliveryOption,
 			accompaniments,
+			delivery_info: {
+				contact,
+				coords,
+			},
 		};
 
 		dispatch(placeOrder(order));
@@ -51,9 +61,10 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 	}, [showModal]);
 	return (
 		<div
+			key={key}
 			className={`${
 				showModal ? "flex" : "hidden"
-			} justify-center items-center absolute top-0 left-0 bg-[#6b7280aa] w-[100vw] h-[100vh] z-50`}
+			} justify-center items-center absolute top-0 left-0 bg-[#6b7280aa] w-[100vw] h-[100vh] z-40`}
 			onClick={() => setShowModal(false)}
 		>
 			<div
@@ -150,6 +161,30 @@ export const OrderModal = ({ showModal, setShowModal, meal }) => {
 							/>
 						</div>
 					)}
+					{deliveryOption == "delivery" && (
+						<>
+							<InputText
+								id="contact"
+								name={"Your Contact"}
+								value={contact}
+								onChange={(e) => setContact(e.target.value)}
+								type={"tel"}
+								placeholder={"+233 055......"}
+							/>
+							<div
+								className="my-3 border w-[100%] py-2 rounded-md shadow-md hover:shadow-xl text-center cursor-pointer"
+								onClick={() => setShowMap(true)}
+							>
+								{!location ? "Pick location" : location}
+							</div>
+						</>
+					)}
+					<PickMap
+						showMap={showMap}
+						setShowMap={setShowMap}
+						setCoords={setCoords}
+						setLocationAddr={setLocation}
+					/>
 					<div className="w-full flex flex-row justify-between items-center mb-3">
 						<div>
 							<span className="text-sm font-bold mr-2">Total: </span>

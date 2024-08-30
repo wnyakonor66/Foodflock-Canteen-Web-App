@@ -65,10 +65,10 @@ const ClientPage = () => {
 
 						<div
 							className={`h-10 mt-1 border-b border-gray-400 flex items-center ${
-								active === "orders" ? "border-l-4" : ""
+								active === "logout" ? "border-l-4" : ""
 							} pl-2 cursor-pointer`}
 							onClick={() => {
-								setActive("orders");
+								setActive("logout");
 								dispatch((logoutUser()));
 								navigate("/login");
 							}}

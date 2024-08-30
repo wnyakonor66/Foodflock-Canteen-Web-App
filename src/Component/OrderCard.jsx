@@ -32,6 +32,27 @@ export default function OrderCard({ order }) {
 					value={"GHC " + order?.deliveryCharge || 0.0}
 				/>
 				<PropValue property="Status:" value={order?.status} />
+				{order?.acceptedByVendor && (
+					<PropValue
+						property="Delivery Status:"
+						value={
+							order?.awaitingDelivery ? "Looking for driver" : "Driver assigned"
+						}
+					/>
+				)}
+
+				{order?.markedAsCompleted && !order?.awaitingDelivery && (
+					<>
+						<PropValue
+							property="Driver Name:"
+							value={order.delivery_info.name}
+						/>
+						<PropValue
+							property="Driver Contact:"
+							value={order.delivery_info.phone}
+						/>
+					</>
+				)}
 			</div>
 			{order?.status !== "cancelled" && !order?.markedAsCompleted && (
 				<div className="flex flex-row mt-2">

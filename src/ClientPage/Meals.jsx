@@ -4,10 +4,12 @@ import ClientMealCard from "../Component/ClientMealCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getMeals, getRecommendedMeals } from "../thunk_action_creators/meal";
 import { OrderModal } from "../Component/OrderModal";
+import { PickMap } from "../Component/PickMap";
 
 export default function Meals() {
 	const [showModal, setShowModal] = useState(false);
 	const [selectedMeal, selectMeal] = useState(null);
+    const [showMap, setShowMap] = useState(true);
 	const meals = useSelector((state) => state.meals.data);
 	const loading = useSelector((state) => state.meals.isLoading);
 	const error = useSelector((state) => state.meals.error);
@@ -25,6 +27,7 @@ export default function Meals() {
 				setShowModal={() => setShowModal(false)}
 				meal={selectedMeal}
 			/>
+			{/* <PickMap showMap={showMap} setShowMap={setShowMap} /> */}
 			<div className="w-full flex flex-row">
 				<SearchBar
 					onSearch={(e) => setSearchTerm(e.target.value)}
@@ -37,7 +40,7 @@ export default function Meals() {
 						onClick={() => {
 							dispatch(getRecommendedMeals());
 						}}
-                        disabled={loading}
+						disabled={loading}
 					>
 						{loading ? "Recommending..." : "Recommend"}
 					</button>

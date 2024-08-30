@@ -24,6 +24,29 @@ export const placeOrder = (form_data) => {
 	};
 };
 
+export const addDeliveryInfo = (form_data, order_id) => {
+	return async (dispatch) => {
+		dispatch(start());
+		try {
+			const response = await fetch(`${server_url}/order/delivery/${order_id}`, {
+				method: "PUT",
+				body: JSON.stringify(form_data),
+				headers: {
+					"Content-Type": "application/json",
+				},
+				credentials: "include",
+			});
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
+			const data = await response.json();
+			dispatch(getOrders());
+		} catch (error) {
+			dispatch(failed(error.message));
+		}
+	};
+};
+
 export const getOrders = () => {
 	return async (dispatch) => {
 		dispatch(start());

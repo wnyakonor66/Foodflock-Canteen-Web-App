@@ -30,7 +30,7 @@ export default function ClientMealCard({
 						<div className="text-sm pr-1 text-gray-600">{description}</div>
 					</div>
 					<div className="flex flex-col w-1/5 text-xl font-roboto font-bold">
-						$ {price}
+                    ₵ {price}
 					</div>
 				</div>
 				<div className="flex flex-row w-full h-12 justify-between pr-2">

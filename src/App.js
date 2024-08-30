@@ -19,6 +19,7 @@ import Vendor from "./ClientPage/Vendor";
 import OrderForm from "./ClientPage/Order";
 import { PaymentProvider } from "./ClientPage/PaymentContext";
 import AuthPage from "./AuthPage";
+import 'mapbox-gl/dist/mapbox-gl.css'; 
 
 
 function App() {
