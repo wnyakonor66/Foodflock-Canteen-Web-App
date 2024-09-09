@@ -47,8 +47,8 @@ export default function VendorOrderCard({ order }) {
 				<PropValue property="Status:" value={order?.status} />
 			</div>
 			{order?.orderType === "delivery" &&
-				order?.awaitingDelivery &&
-				order?.acceptedByVendor && (
+				(order?.awaitingDelivery &&
+				order?.markedAsCompleted) && (
 					<>
 						<div
 							className="my-2 border w-[100%] py-2 rounded-md shadow-md hover:shadow-xl text-center cursor-pointer"

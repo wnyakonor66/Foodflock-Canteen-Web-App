@@ -4,6 +4,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import mapboxgl, { Marker } from "mapbox-gl";
 import { useEffect, useRef, useState } from "react";
 import { SearchBox, useGeocodingCore } from "@mapbox/search-js-react";
+import { FaLocationDot } from "react-icons/fa6";
 
 mapboxgl.accessToken =
 	"pk.eyJ1IjoiY3Jhemljb2RhIiwiYSI6ImNrbmVwYjJ2NzF0amwyb21yZ2VrYWUyamMifQ.fRl4FzY9JsIV21FbdfCHnQ";
@@ -14,11 +15,12 @@ export const PickMap = ({
 	setCoords = () => {},
 	setLocationAddr = () => {},
 	route = false,
+	markedSpot = null,
 }) => {
 	const mapContainer = useRef(null);
 	const map = useRef(null);
-	const [lng, setLng] = useState(-1.6221);
-	const [lat, setLat] = useState(6.6816);
+	const [lng, setLng] = useState(markedSpot?.lng || -1.6221);
+	const [lat, setLat] = useState(markedSpot?.lat || 6.6816);
 	const [zoom, setZoom] = useState(14);
 	const [location, setLocation] = useState("");
 	const [address, setAddress] = useState("");
@@ -37,11 +39,17 @@ export const PickMap = ({
 			zoom: zoom,
 		});
 
+		if (markedSpot) {
+			new mapboxgl.Marker()
+				.setLngLat([markedSpot.lng, markedSpot.lat])
+				.addTo(map.current);
+		}
+
 		map.current.on("idle", function () {
 			map.current.resize();
 		});
 		map.current.on("click", async (e) => {
-			if (route) return;
+			if (route || markedSpot) return;
 			const lngLat = e.lngLat;
 			setLat(lngLat.lat);
 			setLng(lngLat.lng);
@@ -175,6 +183,19 @@ export const PickMap = ({
 					</div>
 				</div>
 				<div className="h-[400px]" ref={mapContainer}></div>
+				{route && (
+					<div>
+						<div className=" flex m-2">
+							{" "}
+							You: <FaLocationDot color="red" size={20} />
+						</div>
+
+						<div className=" flex m-2">
+							{" "}
+							Delivery Location: <FaLocationDot color="#5f5" size={20} />
+						</div>
+					</div>
+				)}
 				{!route && (
 					<div className="mt-5 h-12 pl-5 border-t py-2 mb-2">
 						<button

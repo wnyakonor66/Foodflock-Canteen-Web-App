@@ -11,6 +11,7 @@ export const OrderModal = ({ showModal, setShowModal, meal, key }) => {
 	const [accompaniments, setAccompanients] = useState([]);
 	const [deliveryOption, setDeliveryOption] = useState("pickup");
 	const [showMap, setShowMap] = useState(false);
+	const [showMapPickup, setShowMapPickup] = useState(false);
 	const [contact, setContact] = useState("");
 	const [coords, setCoords] = useState([-1.6221, 6.923]);
 	const [location, setLocation] = useState("");
@@ -179,12 +180,36 @@ export const OrderModal = ({ showModal, setShowModal, meal, key }) => {
 							</div>
 						</>
 					)}
+
+					{(deliveryOption == "pickup" || !meal?.makes_delivery) &&
+						meal?.location && (
+							<div
+								className="mb-3 border w-[100%] py-2 rounded-md shadow-md hover:shadow-xl text-center cursor-pointer"
+								onClick={() => setShowMapPickup(true)}
+							>
+								Show location
+							</div>
+						)}
 					<PickMap
 						showMap={showMap}
 						setShowMap={setShowMap}
 						setCoords={setCoords}
 						setLocationAddr={setLocation}
 					/>
+
+					{meal?.location && (
+						<PickMap
+							showMap={showMapPickup}
+							setShowMap={setShowMapPickup}
+							setCoords={setCoords}
+							setLocationAddr={setLocation}
+                            
+							markedSpot={{
+								lng: meal?.location?.split(",")[0],
+								lat: meal?.location?.split(",")[1],
+							}}
+						/>
+					)}
 					<div className="w-full flex flex-row justify-between items-center mb-3">
 						<div>
 							<span className="text-sm font-bold mr-2">Total: </span>

@@ -15,7 +15,7 @@ const OrderMenu = () => {
 	}, []);
 
 	return (
-		<div className="orders-page">
+		<div className="orders-page overflow-auto">
 			<h2>Orders</h2>
 
 			<div className="flex flex-row flex-wrap">
