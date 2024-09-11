@@ -10,6 +10,7 @@ import {
 } from "../thunk_action_creators/order";
 import InputText from "./InputText";
 import { IoStarSharp } from "react-icons/io5";
+import { MdOutlineShare } from "react-icons/md"
 import { PickMap } from "./PickMap";
 
 export default function VendorOrderCard({ order }) {
@@ -47,8 +48,8 @@ export default function VendorOrderCard({ order }) {
 				<PropValue property="Status:" value={order?.status} />
 			</div>
 			{order?.orderType === "delivery" &&
-				(order?.awaitingDelivery &&
-				order?.markedAsCompleted) && (
+				order?.awaitingDelivery &&
+				order?.markedAsCompleted && (
 					<>
 						<div
 							className="my-2 border w-[100%] py-2 rounded-md shadow-md hover:shadow-xl text-center cursor-pointer"
@@ -98,13 +99,26 @@ export default function VendorOrderCard({ order }) {
 					</>
 				)}
 			{order.markedAsCompleted && order?.awaitingDelivery && (
-				<div
-					className="flex cursor-pointer flex-row items-center border px-3 py-3 mt-2 hover:bg-green-200"
-					onClick={() => dispatch(addDeliveryInfo(delivery_data, order?._id))}
-				>
-					<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
-					<span>Submit Delivery Info</span>
-				</div>
+				<>
+					<div
+						className="flex cursor-pointer flex-row items-center border px-3 py-3 mt-2 hover:bg-green-200"
+						onClick={() => dispatch(addDeliveryInfo(delivery_data, order?._id))}
+					>
+						<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
+						<span>Submit Delivery Info</span>
+					</div>
+
+					<div
+						className="flex cursor-pointer flex-row items-center border px-3 py-3 mt-2 hover:bg-green-200"
+						onClick={() => {
+                            const url = `localhost:3000/delivery?location=${order?.deliveryInfo?.delivery_location}`;
+                            navigator.clipboard.writeText(url);
+                        }}
+					>
+						<MdOutlineShare className={`text-green-500 mr-2`} size={22} />
+						<span>Share Delivery Location</span>
+					</div>
+				</>
 			)}
 			{order?.orderType === "delivery" && !order?.acceptedByVendor && (
 				<div className="flex flex-row mt-2 ml-2"></div>

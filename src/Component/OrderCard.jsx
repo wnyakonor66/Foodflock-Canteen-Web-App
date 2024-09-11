@@ -32,7 +32,7 @@ export default function OrderCard({ order }) {
 					value={"GHC " + order?.deliveryCharge || 0.0}
 				/>
 				<PropValue property="Status:" value={order?.status} />
-				{order?.acceptedByVendor && (
+				{order?.acceptedByVendor && order?.markedAsCompleted && (
 					<PropValue
 						property="Delivery Status:"
 						value={
@@ -90,7 +90,7 @@ export default function OrderCard({ order }) {
 				</div>
 			)}
 
-			{order.markedAsCompleted && order.status !== "completed" && (
+			{order.markedAsCompleted && !order?.awaitingDelivery &&order.status !== "completed" && (
 				<div
 					className="flex flex-row items-center border mt-2 px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-green-200"
 					onClick={() => {
@@ -99,6 +99,15 @@ export default function OrderCard({ order }) {
 				>
 					<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
 					<span>Mark As Order Received</span>
+				</div>
+			)}
+
+            {order.markedAsCompleted && order?.awaitingDelivery && (
+				<div
+					className="flex flex-row items-center border mt-2 px-3 py-3 cursor-pointer hover:shadow-xl hover:bg-green-200"
+				>
+					<MdOutlineDone className={`text-green-500 mr-2`} size={22} />
+					<span>Order completed, waiting for driver</span>
 				</div>
 			)}
 

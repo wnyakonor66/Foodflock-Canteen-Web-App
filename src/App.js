@@ -19,92 +19,96 @@ import Vendor from "./ClientPage/Vendor";
 import OrderForm from "./ClientPage/Order";
 import { PaymentProvider } from "./ClientPage/PaymentContext";
 import AuthPage from "./AuthPage";
-import 'mapbox-gl/dist/mapbox-gl.css'; 
-
+import "mapbox-gl/dist/mapbox-gl.css";
+import Delivery from "./Delivery/Delivery";
 
 function App() {
-  const route = createBrowserRouter([
-    {
-      path: "/",
-      element: <AuthPage />,
-    },
-    {
-      path: "/login",
-      element: <AuthPage />,
-    },
-    {
-      path: "/questions",
-      element: <QuestionPage />,
-    },
-    {
-      path: "/vendorForms",
-      element: <VendorForm />,
-    },
-    {
-      path: "/client",
-      element: <ClientPage />,
-      children: [
-        {
-          path: "order",
-          element: <Order />,
-        },
-        {
-          path: "",
-          element: <Meals />,
-        },
-        {
-          path: "vendors",
-          element: <Vendor />
-        },
-        {
-          path: "orders",
-          element: <OrderForm/>
-        }
-      ],
-    },
-    {
-      path: "/vendorsPage",
-      element: <VendorsPage />,
-      children: [
-        {
-          path: "",
-          element: <Profile />,
-        },
-        {
-          path: "profile",
-          element: <Profile />,
-        },
-        {
-          path: "product",
-          element: <Product />,
-        },
-        {
-          path: "order",
-          element: <OrderMenu />,
-        },
-        {
-          path: "settings",
-          element: <Settings />,
-        },
-        {
-          path: "support",
-          element: <Support />,
-        },
-      ],
-    },
-  ]);
+	const route = createBrowserRouter([
+		{
+			path: "/",
+			element: <AuthPage />,
+		},
+		{
+			path: "/login",
+			element: <AuthPage />,
+		},
+		{
+			path: "/questions",
+			element: <QuestionPage />,
+		},
+		{
+			path: "/vendorForms",
+			element: <VendorForm />,
+		},
+		{
+			path: "/delivery",
+			element: <Delivery />,
+		},
+		{
+			path: "/client",
+			element: <ClientPage />,
+			children: [
+				{
+					path: "order",
+					element: <Order />,
+				},
+				{
+					path: "",
+					element: <Meals />,
+				},
+				{
+					path: "vendors",
+					element: <Vendor />,
+				},
+				{
+					path: "orders",
+					element: <OrderForm />,
+				},
+			],
+		},
+		{
+			path: "/vendorsPage",
+			element: <VendorsPage />,
+			children: [
+				{
+					path: "",
+					element: <Profile />,
+				},
+				{
+					path: "profile",
+					element: <Profile />,
+				},
+				{
+					path: "product",
+					element: <Product />,
+				},
+				{
+					path: "order",
+					element: <OrderMenu />,
+				},
+				{
+					path: "settings",
+					element: <Settings />,
+				},
+				{
+					path: "support",
+					element: <Support />,
+				},
+			],
+		},
+	]);
 
-  return (
-    <div className="App h-full">
-     <PaymentProvider>
-      <VendorProvider>
-        <ProductProvider>
-          <RouterProvider router={route} />
-        </ProductProvider>
-        </VendorProvider> 
-      </PaymentProvider> 
-    </div>
-  );
+	return (
+		<div className="App h-full">
+			<PaymentProvider>
+				<VendorProvider>
+					<ProductProvider>
+						<RouterProvider router={route} />
+					</ProductProvider>
+				</VendorProvider>
+			</PaymentProvider>
+		</div>
+	);
 }
 
 export default App;

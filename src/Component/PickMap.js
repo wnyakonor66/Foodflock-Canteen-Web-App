@@ -11,7 +11,7 @@ mapboxgl.accessToken =
 
 export const PickMap = ({
 	showMap = false,
-	setShowMap,
+	setShowMap = () => {},
 	setCoords = () => {},
 	setLocationAddr = () => {},
 	route = false,
